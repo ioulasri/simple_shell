@@ -11,7 +11,7 @@
 char **environ;
 
 /* handle_input.c */
-void handle_input(char *buf, char **env, char **av);
+int handle_input(char *buf, char **env, char **av);
 
 /* split_string.c */
 char **tokenize(char *buf);

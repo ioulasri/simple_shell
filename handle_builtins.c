@@ -9,26 +9,27 @@
 
 int builtins(char **tokens, char **env)
 {
-    int i = 0;
-    if (_strncmp(tokens[0], "exit", 4) == 0)
-    {
-        free(tokens);
-        exit(0);
-    }
-    if (_strncmp(tokens[0], "env", 3) == 0)
-    {
-        while (env[i] != NULL)
-        {
-            write(STDOUT_FILENO, env[i], _strlen(env[i]));
-            write(STDOUT_FILENO, "\n", 1);
-            i++;
-        }
-        return (1);
-    }
-    if (_strncmp(tokens[0], "clear", 5) == 0)
-    {
-        write(STDOUT_FILENO, "\033[H\033[J", 6);
-        return (1);
-    }
-    return (0);
+	int i = 0;
+
+	if (_strncmp(tokens[0], "exit", 4) == 0)
+	{
+		free(tokens);
+		exit(0);
+	}
+	if (_strncmp(tokens[0], "env", 3) == 0)
+	{
+		while (env[i] != NULL)
+		{
+			write(STDOUT_FILENO, env[i], _strlen(env[i]));
+			write(STDOUT_FILENO, "\n", 1);
+			i++;
+		}
+		return (1);
+	}
+	if (_strncmp(tokens[0], "clear", 5) == 0)
+	{
+		write(STDOUT_FILENO, "\033[H\033[J", 6);
+		return (1);
+	}
+	return (0);
 }

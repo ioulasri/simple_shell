@@ -1,5 +1,13 @@
 #include "shell.h"
 
+/**
+ * main - main function of the shell
+ * @ac: argument count
+ * @av: argument vector
+ * @env: environment variables
+ * Return: 0 on success
+ */
+
 int main(int ac, char **av, char **env)
 {
 	char *buf = NULL;

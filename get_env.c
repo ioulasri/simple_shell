@@ -7,13 +7,13 @@
  */
 
 char *_getenv(const char *name) {
-    extern char **environ; 
-    int i = 0;
-    while (environ[i] != NULL) {
-        if (strncmp(name, environ[i], strlen(name)) == 0 && environ[i][strlen(name)] == '=') {
-            return (&environ[i][strlen(name) + 1]); 
-        }
-        i++;
-    }
-    return NULL;
+	extern char **environ; 
+	int i = 0;
+	while (environ[i] != NULL) {
+		if (strncmp(name, environ[i], strlen(name)) == 0 && environ[i][strlen(name)] == '=') {
+			return (&environ[i][strlen(name) + 1]); 
+		}
+		i++;
+	}
+	return NULL;
 }
