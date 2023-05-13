@@ -29,7 +29,6 @@ int handle_input(char *buf, char **env, char **av)
 	if (run_cmd(tokens, env, av) == -1)
 	{
 		free(buf);
-		free(tokens);
 		return (-1);
 	}
 	free(buf);

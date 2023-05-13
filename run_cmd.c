@@ -12,6 +12,7 @@ int run_cmd(char **tokens, char **env, char **av)
 {
 	char *path = NULL;
 	int status = 0;
+	int exit_status = 0;
 	pid_t pid = 0;
 	int cmd_exits = 0;
 
@@ -31,12 +32,12 @@ int run_cmd(char **tokens, char **env, char **av)
 		{
 			if (execve(path, tokens, env) == -1)
 			{
-				free_array(tokens);
+				free(tokens);
 				return (-1);
 			}
 		}
 		else
-			wait(NULL);
+			wait(&exit_status);
 	}
 	if (status == 0 && cmd_exits == 0)
 		perror(av[0]);
