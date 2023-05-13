@@ -8,7 +8,29 @@
 #include <sys/wait.h>
 #include <sys/stat.h>
 
+#define READ_SIZE 1024
+
 char **environ;
+/* get_line.c */
+
+typedef struct list_s
+{
+    char *buffer;
+    char **args;
+    int status;
+    pid_t pid;
+    struct list_s *next;
+} list_t;
+
+char *get_line(char **buffer, size_t *buffer_size, int fd);
+int found_newline(char *buf);
+list_t *add_node_end(list_t **head);
+void read_and_stash(int fd, list_t **head, char *buffer);
+void extract_line(list_t **head, char **buf, char **line);
+void generate_line(list_t **head, char *buf, char **line);
+void clean_stash(list_t **head);
+void free_stash(list_t **head);
+
 
 /* handle_input.c */
 int handle_input(char *buf, char **env, char **av);
@@ -28,13 +50,13 @@ char *_strcat(char *dest, char *src);
 
 /* functions2.c */
 char *_getenv(const char *name);
-char *_strtok(char *str, char *delim);
 int _atoi(char *str);
 char *_strcpy(char *dest, char *src);
 char *_itoa(int num);
 
 /* functions3.c */
-void print_error(char *av, int count, char *cmd, char *msg);
+char *_strchr(const char *s, int c);
+char *_strtok(char *str, char *delim);
 
 /* free_array.c */
 void free_array(char **array);
@@ -47,5 +69,7 @@ char *get_path(char *cmd);
 
 /* run_cmd.c */
 int run_cmd(char **tokens, char **env, char **av);
+
+
 
 #endif /* SHELL_H */

@@ -69,59 +69,6 @@ char *_itoa(int num)
 }
 
 /**
- * _strtok - tokenizes a string
- * @str: string to be tokenized
- * @delim: delimiter
- * Return: pointer to the tokenized string
- */
-
-char *_strtok(char *str, char *delim)
-{
-	static char *token;
-	int i = 0, j = 0, k = 0, l = 0, m = 0;
-	char *tok = NULL;
-
-	if (str != NULL)
-		token = str;
-	if (token == NULL)
-		return (NULL);
-	while (token[i] != '\0')
-	{
-		while (delim[j] != '\0')
-		{
-			if (token[i] == delim[j])
-			{
-				l++;
-				break;
-			}
-			j++;
-		}
-		if (l == 0)
-			m++;
-		if (l > 0 && m > 0)
-			break;
-		i++;
-		j = 0;
-	}
-	if (token[i] == '\0')
-	{
-		token = NULL;
-		return (NULL);
-	}
-	tok = malloc(sizeof(char) * (m + 1));
-	if (tok == NULL)
-		return (NULL);
-	while (k < m)
-	{
-		tok[k] = token[k];
-		k++;
-	}
-	tok[k] = '\0';
-	token += m + 1;
-	return (tok);
-}
-
-/**
  * _strcpy - copies a string
  * @dest: destination string
  * @src: source string

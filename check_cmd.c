@@ -24,7 +24,7 @@ int check_cmd(char *cmd)
 	}
 	path = getenv("PATH");
 	path_copy = _strdup(path);
-	token = strtok(path_copy, ":");
+	token = _strtok(path_copy, ":");
 	while (token != NULL)
 	{
 		cmd_path = _strcat(token, "/");
@@ -35,7 +35,7 @@ int check_cmd(char *cmd)
 			free(cmd_path);
 			return (1);
 		}
-		token = strtok(NULL, ":");
+		token = _strtok(NULL, ":");
 		free(cmd_path);
 	}
 	free(path_copy);
