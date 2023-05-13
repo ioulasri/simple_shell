@@ -11,6 +11,7 @@ int check_cmd(char *cmd)
 	char *path = NULL;
 	char *path_copy = NULL;
 	char *token = NULL;
+	char *cmd_dir = NULL;
 	char *cmd_path = NULL;
 	struct stat st;
 	int found = 0;
@@ -32,11 +33,17 @@ int check_cmd(char *cmd)
 	token = strtok(path_copy, ":");
 	while (token != NULL)
 	{
-		cmd_path = _strcat(token, "/");
+		cmd_dir = _strdup(token);
+		if (cmd_dir == NULL)
+			break;
+		cmd_path = _strcat(cmd_dir, "/");
+		if (cmd_path == NULL)
+			break;
 		cmd_path = _strcat(cmd_path, cmd);
 		if (stat(cmd_path, &st) == 0)
 			found = 1;
 		free(cmd_path);
+		free(cmd_dir);
 		token = strtok(NULL, ":");
 	}
 	free(path_copy);
