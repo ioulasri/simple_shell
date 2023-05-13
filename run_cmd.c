@@ -11,14 +11,14 @@
 int run_cmd(char **tokens, char **env, char **av)
 {
 	char *path = NULL;
-	int status = 0;
+	int is_built_in = 0;
 	int exit_status = 0;
 	pid_t pid = 0;
 	int cmd_exits = 0;
 
-	status = builtins(tokens, env);
+	is_built_in = builtins(tokens, env);
 	cmd_exits = check_cmd(tokens[0]);
-	if (status == 0 && cmd_exits == 1)
+	if (is_built_in == 0 && cmd_exits == 1)
 	{
 		path = get_path(tokens[0]);
 		pid = fork();
@@ -35,11 +35,11 @@ int run_cmd(char **tokens, char **env, char **av)
 				free(tokens);
 				return (-1);
 			}
-		}
+		} 
 		else
 			wait(&exit_status);
 	}
-	if (status == 0 && cmd_exits == 0)
+	if (is_built_in == 0 && cmd_exits == 0)
 		perror(av[0]);
 	return (0);
 }
