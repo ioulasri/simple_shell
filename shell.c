@@ -35,4 +35,5 @@ int main(int ac, char **av, char **env)
 		buf_size = 0;
 		buf = NULL;
 	}
+	return (0);
 }
