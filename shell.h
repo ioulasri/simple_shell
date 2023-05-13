@@ -44,9 +44,6 @@ int check_cmd(char *cmd);
 
 /* get_path.c */
 char *get_path(char *cmd);
-char *search_path(char *cmd, char *path);
-char *build_cmd_path(char *cmd, char *dir);
-int file_exists(char *path);
 
 /* run_cmd.c */
 int run_cmd(char **tokens, char **env, char **av);

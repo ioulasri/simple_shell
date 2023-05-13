@@ -13,7 +13,6 @@ int check_cmd(char *cmd)
 	char *token = NULL;
 	char *cmd_path = NULL;
 	struct stat st;
-	int found = 0;
 
 	if (cmd == NULL)
 		return (0);
@@ -24,21 +23,21 @@ int check_cmd(char *cmd)
 		return (0);
 	}
 	path = getenv("PATH");
-	if (path == NULL)
-		return (0);
 	path_copy = _strdup(path);
-	if (path_copy == NULL)
-		return (0);
 	token = strtok(path_copy, ":");
 	while (token != NULL)
 	{
 		cmd_path = _strcat(token, "/");
 		cmd_path = _strcat(cmd_path, cmd);
 		if (stat(cmd_path, &st) == 0)
-			found = 1;
-		free(cmd_path);
+		{
+			free(path_copy);
+			free(cmd_path);
+			return (1);
+		}
 		token = strtok(NULL, ":");
+		free(cmd_path);
 	}
 	free(path_copy);
-	return (found);
+	return (0);
 }

@@ -92,22 +92,23 @@ char *_strdup(char *str)
 
 char *_strcat(char *dest, char *src)
 {
-    if (dest == NULL || src == NULL)
-        return NULL;
+	int i = 0, j = 0;
+	char *concat = NULL;
 
-    size_t src_len, dest_len;
-	char *new_str;
-
-	dest_len = strlen(dest);
-    src_len = strlen(src);
-
-    new_str = malloc(dest_len + src_len + 1);
-
-    if (new_str == NULL)
-        return NULL;
-
-    _strcpy(new_str, dest);
-    _strcpy(new_str + dest_len, src);
-
-    return new_str;
+	concat = malloc(sizeof(char) * (_strlen(dest) + _strlen(src) + 1));
+	if (concat == NULL)
+		return (NULL);
+	while (dest[i] != '\0')
+	{
+		concat[i] = dest[i];
+		i++;
+	}
+	while (src[j] != '\0')
+	{
+		concat[i] = src[j];
+		i++;
+		j++;
+	}
+	concat[i] = '\0';
+	return (concat);
 }

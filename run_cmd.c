@@ -26,15 +26,13 @@ int run_cmd(char **tokens, char **env, char **av)
 		{
 			perror("Error");
 			free_array(tokens);
-			free(path);
 			return (-1);
 		}
 		if (pid == 0)
 		{
 			if (execve(path, tokens, env) == -1)
 			{
-				free_array(tokens);
-				free(path);
+				free(tokens);
 				return (-1);
 			}
 		} 

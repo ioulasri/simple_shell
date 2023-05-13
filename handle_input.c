@@ -4,7 +4,7 @@
  * handle_input - handles the input from the user
  * @buf: buffer to store the input
  * @env: environment variables
- * @av: arguments
+ * @av: arguments vector
  * Return: 0 on success
  */
 
@@ -23,7 +23,7 @@ int handle_input(char *buf, char **env, char **av)
 	if (tokens[0] == NULL)
 	{
 		free(buf);
-		free_array(tokens);
+		free(tokens);
 		return (0);
 	}
 	if (run_cmd(tokens, env, av) == -1)
@@ -32,6 +32,6 @@ int handle_input(char *buf, char **env, char **av)
 		return (-1);
 	}
 	free(buf);
-	free_array(tokens);
+	free(tokens);
 	return (0);
 }
