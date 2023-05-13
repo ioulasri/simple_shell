@@ -13,7 +13,7 @@ int builtins(char **tokens, char **env)
 
 	if (_strncmp(tokens[0], "exit", 4) == 0)
 	{
-		free(tokens);
+		free_array(tokens);
 		exit(0);
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)
