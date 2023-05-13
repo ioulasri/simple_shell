@@ -95,8 +95,10 @@ char *_strcat(char *dest, char *src)
     if (dest == NULL || src == NULL)
         return NULL;
 
-    size_t dest_len = strlen(dest);
-    size_t src_len = strlen(src);
+    size_t src_len, dest_len;
+	
+	dest_len = strlen(dest);
+    src_len = strlen(src);
 
     char *new_str = malloc(dest_len + src_len + 1);
 
