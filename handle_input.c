@@ -23,7 +23,7 @@ int handle_input(char *buf, char **env, char **av)
 	if (tokens[0] == NULL)
 	{
 		free(buf);
-		free(tokens);
+		free_array(tokens);
 		return (0);
 	}
 	if (run_cmd(tokens, env, av) == -1)
@@ -32,6 +32,6 @@ int handle_input(char *buf, char **env, char **av)
 		return (-1);
 	}
 	free(buf);
-	free(tokens);
+	free_array(tokens);
 	return (0);
 }
