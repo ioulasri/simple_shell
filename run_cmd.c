@@ -33,7 +33,7 @@ int run_cmd(char **tokens, char **env, char **av)
 		{
 			if (execve(path, tokens, env) == -1)
 			{
-				free(tokens);
+				free_array(tokens);
 				free(path);
 				return (-1);
 			}
