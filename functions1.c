@@ -96,11 +96,12 @@ char *_strcat(char *dest, char *src)
         return NULL;
 
     size_t src_len, dest_len;
-	
+	char *new_str;
+
 	dest_len = strlen(dest);
     src_len = strlen(src);
 
-    char *new_str = malloc(dest_len + src_len + 1);
+    new_str = malloc(dest_len + src_len + 1);
 
     if (new_str == NULL)
         return NULL;
