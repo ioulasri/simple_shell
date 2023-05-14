@@ -34,6 +34,7 @@ void free_stash(list_t **head);
 
 /* handle_input.c */
 int handle_input(char *buf, char **env, char **av);
+void sigint_handler(int signal);
 
 /* split_string.c */
 char **tokenize(char *buf);
@@ -49,14 +50,16 @@ char *_strdup(char *str);
 char *_strcat(char *dest, char *src);
 
 /* functions2.c */
-char *_getenv(const char *name);
 int _atoi(char *str);
 char *_strcpy(char *dest, char *src);
 char *_itoa(int num);
+int _constcharlen(const char *str);
+void print_error(char *av, int count, char *cmd, char *msg);
 
 /* functions3.c */
 char *_strchr(const char *s, int c);
 char *_strtok(char *str, char *delim);
+
 
 /* free_array.c */
 void free_array(char **array);
@@ -70,6 +73,17 @@ char *get_path(char *cmd);
 /* run_cmd.c */
 int run_cmd(char **tokens, char **env, char **av);
 
+/* edit_env.c */
+int _setenv(char *name, char *value, int overwrite);
+int _unsetenv(const char *name);
+char *_getenv(const char *name);
 
+/* my_cd.c */
+void my_cd(char **args);
+
+/* alias.c */
+char *get_alias(const char *name);
+int check_alias(char *cmd);
+int set_alias(char *name, char *value, int overwrite);
 
 #endif /* SHELL_H */

@@ -87,3 +87,42 @@ char *_strcpy(char *dest, char *src)
 	dest[i] = '\0';
 	return (dest);
 }
+
+/**
+ * _constcharlen - counts the number of characters in a constant string
+ * @str: constant string
+ * Return: number of characters in the string
+ */
+
+int _constcharlen(const char *str)
+{
+	int i = 0;
+
+	while (str[i] != '\0')
+		i++;
+	return (i);
+}
+
+/**
+ * print_error - prints an error message
+ * @argv: name of the program
+ * @count: number of commands entered
+ * @cmd: command entered
+ * @msg: error message
+ */
+
+void print_error(char *argv, int count, char *cmd, char *msg)
+{
+	char *count_str = NULL;
+
+	write(STDERR_FILENO, argv, _constcharlen(argv));
+	write(STDERR_FILENO, ": ", 2);
+	count_str = _itoa(count);
+	write(STDERR_FILENO, count_str, _constcharlen(count_str));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, msg, _constcharlen(msg));
+	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, cmd, _constcharlen(cmd));
+	write(STDERR_FILENO, "\n", 1);
+	free(count_str);
+}

@@ -15,7 +15,7 @@ int builtins(char **tokens, char **env)
 	{
 		if (tokens[1] != NULL)
 			i = _atoi(tokens[1]);
-		free_array(tokens);
+		free(tokens);
 		exit(i);
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)
@@ -31,6 +31,16 @@ int builtins(char **tokens, char **env)
 	if (_strncmp(tokens[0], "clear", 5) == 0)
 	{
 		write(STDOUT_FILENO, "\033[H\033[J", 6);
+		return (1);
+	}
+	if (_strncmp(tokens[0], "help", 4) == 0)
+	{
+		write(STDOUT_FILENO, "help\n", 5);
+		return (1);
+	}
+	if (_strncmp(tokens[0], "cd", 2) == 0)
+	{
+		my_cd(tokens);	
 		return (1);
 	}
 	return (0);
