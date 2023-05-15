@@ -33,14 +33,14 @@ int builtins(char **tokens, char **env)
 		write(STDOUT_FILENO, "\033[H\033[J", 6);
 		return (1);
 	}
-	if (_strncmp(tokens[0], "help", 4) == 0)
+	if (_strncmp(tokens[0], "echo", 4) == 0)
 	{
-		write(STDOUT_FILENO, "help\n", 5);
+		handle_echo(tokens);
 		return (1);
 	}
 	if (_strncmp(tokens[0], "cd", 2) == 0)
 	{
-		my_cd(tokens);	
+		my_cd(tokens);
 		return (1);
 	}
 	return (0);

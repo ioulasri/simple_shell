@@ -72,4 +72,7 @@ char *get_alias(const char *name);
 int check_alias(char *cmd);
 int set_alias(char *name, char *value, int overwrite);
 
+/* handle_echo.c */
+int handle_echo(char **tokens);
+
 #endif /* SHELL_H */
