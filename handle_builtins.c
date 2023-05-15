@@ -1,6 +1,23 @@
 #include "shell.h"
 
 /**
+ * print_env - prints the environment variables
+ * @env: environment variables
+ */
+
+void print_env(char **env)
+{
+	int i = 0;
+
+	while (env[i] != NULL)
+	{
+		write(STDOUT_FILENO, env[i], _strlen(env[i]));
+		write(STDOUT_FILENO, "\n", 1);
+		i++;
+	}
+}
+
+/**
  * builtins - handles the builtins
  * @tokens: array of strings
  * @env: environment variables
@@ -26,6 +43,31 @@ int builtins(char **tokens, char **env)
 			write(STDOUT_FILENO, "\n", 1);
 			i++;
 		}
+		return (1);
+	}
+	if (_strncmp(tokens[0], "setenv", 6) == 0)
+	{
+		if (tokens[1] == NULL)
+		{
+			print_env(env);
+			return (1);
+		}
+		if (tokens[2] == NULL)
+		{
+			_setenv(tokens[1], "", 1);
+			return (1);
+		}
+		_setenv(tokens[1], tokens[2], 1);
+		return (1);
+	}
+	if (_strncmp(tokens[0], "unsetenv", 8) == 0)
+	{
+		if (tokens[1] == NULL)
+		{
+			write(STDERR_FILENO, "Usage: unsetenv [VARIABLE]\n", 27);
+			return (1);
+		}
+		_unsetenv(tokens[1]);
 		return (1);
 	}
 	if (_strncmp(tokens[0], "clear", 5) == 0)

@@ -62,7 +62,7 @@ int run_cmd(char **tokens, char **env, char **av);
 
 /* edit_env.c */
 int _setenv(char *name, char *value, int overwrite);
-int _unsetenv(const char *name);
+int _unsetenv(char *key);
 int len_env(char **env);
 char *_getenv(char *key);
 
@@ -76,6 +76,7 @@ int set_alias(char *name, char *value, int overwrite);
 
 /* handle_echo.c */
 int handle_echo(char **tokens, int *status);
+void handle_echo_args(char *tokens, int *status);
 char *get__env(char *key);
 char *to_upper(char *str);
 

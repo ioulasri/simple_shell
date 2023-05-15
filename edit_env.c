@@ -55,51 +55,49 @@ int len_env(char **env)
 
 int _setenv(char *key, char *value, int overwrite)
 {
-	char *new_token;
-	size_t len_key, len_value;
-	int len_environ, i = 0, found = 0;
-	char **new_environ;
+	int i = 0, j = 0, k = 0;
+	char *new_var = NULL;
+	char **env = NULL;
 
-	if (key == NULL || value == NULL)
-		return (-1);
-
-	if (_getenv(key) && overwrite == 0)
-		return (0);
-
-	len_key = _strlen(key);
-	len_value = _strlen(value);
-	new_token = malloc(sizeof(char) * (len_value + len_key + 2));
-
-	_strcpy(new_token, key);
-	_strcat(new_token, "=");
-	_strcat(new_token, value);
-	new_token[len_key + len_value + 1] = '\0';
-
-	len_environ = len_env(environ);
-	if (_getenv(key))
-		new_environ = malloc(sizeof(char *) * len_environ);
-	else
-		new_environ = malloc(sizeof(char *) * len_environ + 1);
-
-	while (environ[i])
+	env = environ;
+	while (env[i] != NULL)
 	{
-		if (_strncmp(environ[i], key, len_key) == 0)
+		while (env[i][j] != '=')
+			j++;
+		if (_strncmp(env[i], (char *)key, j) == 0)
 		{
-			new_environ[i] = _strdup(new_token);
-			found = 1;
+			if (overwrite == 1)
+			{
+				new_var = malloc(sizeof(char) * (_strlen(key) + _strlen(value) + 2));
+				if (new_var == NULL)
+					return (-1);
+				for (k = 0; k < j; k++)
+					new_var[k] = env[i][k];
+				new_var[k] = '=';
+				k++;
+				for (j = 0; value[j] != '\0'; j++, k++)
+					new_var[k] = value[j];
+				new_var[k] = '\0';
+				env[i] = new_var;
+				return (0);
+			}
+			return (0);
 		}
-		else
-			new_environ[i] = environ[i];
 		i++;
+		j = 0;
 	}
-	if (found == 0)
-	{
-		new_environ[i] = _strdup(new_token);
-		new_environ[i + 1] = NULL;
-	}
-	else
-		new_environ[i] = NULL;
-	environ = new_environ;
+	new_var = malloc(sizeof(char) * (_strlen(key) + _strlen(value) + 2));
+	if (new_var == NULL)
+		return (-1);
+	for (k = 0; key[k] != '\0'; k++)
+		new_var[k] = key[k];
+	new_var[k] = '=';
+	k++;
+	for (j = 0; value[j] != '\0'; j++, k++)
+		new_var[k] = value[j];
+	new_var[k] = '\0';
+	env[i] = new_var;
+	env[i + 1] = NULL;
 	return (0);
 }
 
@@ -109,30 +107,24 @@ int _setenv(char *key, char *value, int overwrite)
  * Return: 0 on success, -1 on failure
  */
 
-int _unsetenv(const char *name)
+int _unsetenv(char *key)
 {
-    int i = 0, j = 0, k = 0;
-    char **env = NULL, *new_var = NULL;
+	int i = 0, j = 0, k = 0;
+	char **env = NULL;
 
-    env = environ;
-    while (env[i] != NULL)
-    {
-        while (env[i][j] != '=')
-            j++;
-        if (_strncmp(env[i], (char *)name, j) == 0)
-        {
-            new_var = malloc(sizeof(char) * (_constcharlen(name) + 2));
-            if (new_var == NULL)
-                return (-1);
-            for (k = 0; name[k] != '\0'; k++)
-                new_var[k] = name[k];
-            new_var[k] = '=';
-            new_var[k + 1] = '\0';
-            env[i] = new_var;
-            return (0);
-        }
-        i++;
-        j = 0;
-    }
-    return (0);
+	env = environ;
+	while (env[i] != NULL)
+	{
+		while (env[i][j] != '=')
+			j++;
+		if (_strncmp(env[i], (char *)key, j) == 0)
+		{
+			for (k = i; env[k] != NULL; k++)
+				env[k] = env[k + 1];
+			return (0);
+		}
+		i++;
+		j = 0;
+	}
+	return (-1);
 }
