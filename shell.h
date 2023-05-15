@@ -12,7 +12,9 @@
 #define READ_SIZE 1024
 #define BUFSIZE 1024
 
+int ex_status;
 extern char **environ;
+
 /* get_line.c */
 ssize_t _getline(char **buffer, size_t *bufsize, int fd);
 
@@ -73,6 +75,8 @@ int check_alias(char *cmd);
 int set_alias(char *name, char *value, int overwrite);
 
 /* handle_echo.c */
-int handle_echo(char **tokens);
+int handle_echo(char **tokens, int *status);
+char *get__env(char *key);
+char *to_upper(char *str);
 
 #endif /* SHELL_H */

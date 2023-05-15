@@ -12,7 +12,6 @@ int run_cmd(char **tokens, char **env, char **av)
 {
 	char *path = NULL;
 	int is_built_in = 0;
-	int exit_status = 0;
 	pid_t pid = 0;
 	int cmd_exits = 0;
 
@@ -35,9 +34,9 @@ int run_cmd(char **tokens, char **env, char **av)
 				free(tokens);
 				return (-1);
 			}
-		} 
+		}
 		else
-			wait(&exit_status);
+			wait(&ex_status);
 	}
 	if (is_built_in == 0 && cmd_exits == 0)
 		perror(av[0]);

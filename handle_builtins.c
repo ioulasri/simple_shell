@@ -35,7 +35,7 @@ int builtins(char **tokens, char **env)
 	}
 	if (_strncmp(tokens[0], "echo", 4) == 0)
 	{
-		handle_echo(tokens);
+		handle_echo(tokens, &ex_status);
 		return (1);
 	}
 	if (_strncmp(tokens[0], "cd", 2) == 0)
