@@ -6,20 +6,43 @@
  * Return: pointer to the variable, NULL if not found
  */
 
-char *_getenv(const char *name)
+char *_getenv(char *key)
 {
-    int i = 0, j = 0;
+	unsigned int i = 0;
+	char *path;
+	char **env;
+	int count = 0, j = 0;
 
-    while (environ[i] != NULL)
-    {
-        while (environ[i][j] != '=')
-            j++;
-        if (_strncmp(environ[i], (char *)name, j) == 0)
-            return (environ[i] + j + 1);
-        i++;
-        j = 0;
-    }
-    return (NULL);
+	while (environ[count])
+		count++;
+
+	env = malloc(sizeof(char *) * (count + 1));
+
+	for (j = 0; j < count; j++)
+		env[j] = _strdup(environ[j]);
+
+	env[count] = NULL;
+
+	while (env[i])
+	{
+		path = strtok(env[i], "=");
+		if (_strcmp(key, env[i]) == 0)
+		{
+			path = strtok(NULL, "\n");
+			return(path);
+		}
+		i++;
+	}
+	return (NULL);
+}
+
+int len_env(char **env)
+{
+	int i = 0;
+
+	while (env[i])
+		i++;
+	return (i);
 }
 
 /**
@@ -30,52 +53,54 @@ char *_getenv(const char *name)
  * Return: 0 on success, -1 on failure
  */
 
-int _setenv(char *name, char *value, int overwrite)
+int _setenv(char *key, char *value, int overwrite)
 {
-    int i = 0, j = 0, k = 0;
-    char *new_var = NULL;
-    char **env = NULL;
+	char *new_token;
+	size_t len_key, len_value;
+	int len_environ, i = 0, found = 0;
+	char **new_environ;
 
-    env = environ;
-    while (env[i] != NULL)
-    {
-        while (env[i][j] != '=')
-            j++;
-        if (_strncmp(env[i], (char *)name, j) == 0)
-        {
-            if (overwrite == 1)
-            {
-                new_var = malloc(sizeof(char) * (_strlen(name) + _strlen(value) + 2));
-                if (new_var == NULL)
-                    return (-1);
-                for (k = 0; k < j; k++)
-                    new_var[k] = env[i][k];
-                new_var[k] = '=';
-                k++;
-                for (j = 0; value[j] != '\0'; j++, k++)
-                    new_var[k] = value[j];
-                new_var[k] = '\0';
-                env[i] = new_var;
-                return (0);
-            }
-            return (0);
-        }
-        i++;
-        j = 0;
-    }
-    new_var = malloc(sizeof(char) * (_strlen(name) + _strlen(value) + 2));
-    if (new_var == NULL)
-        return (-1);
-    for (k = 0; name[k] != '\0'; k++)
-        new_var[k] = name[k];
-    new_var[k] = '=';
-    k++;
-    for (j = 0; value[j] != '\0'; j++, k++)
-        new_var[k] = value[j];
-    new_var[k] = '\0';
-    env[i] = new_var;
-    env[i + 1] = NULL;
-    return (0);
+	if (key == NULL || value == NULL)
+		return (-1);
+
+	if (_getenv(key) && overwrite == 0)
+		return (0);
+
+	len_key = _strlen(key);
+	len_value = _strlen(value);
+	new_token = malloc(sizeof(char) * (len_value + len_key + 2));
+
+	_strcpy(new_token, key);
+	_strcat(new_token, "=");
+	_strcat(new_token, value);
+	new_token[len_key + len_value + 1] = '\0';
+
+	len_environ = len_env(environ);
+	if (_getenv(key))
+		new_environ = malloc(sizeof(char *) * len_environ);
+	else
+		new_environ = malloc(sizeof(char *) * len_environ + 1);
+
+	while (environ[i])
+	{
+		if (_strncmp(environ[i], key, len_key) == 0)
+		{
+			new_environ[i] = _strdup(new_token);
+			found = 1;
+		}
+		else
+			new_environ[i] = environ[i];
+		i++;
+	}
+	if (found == 0)
+	{
+		new_environ[i] = _strdup(new_token);
+		new_environ[i + 1] = NULL;
+	}
+	else
+		new_environ[i] = NULL;
+	environ = new_environ;
+	return (0);
 }
 
 /**

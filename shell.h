@@ -10,7 +10,7 @@
 
 #define READ_SIZE 1024
 
-char **environ;
+extern char **environ;
 /* get_line.c */
 
 typedef struct list_s
@@ -47,7 +47,7 @@ int _strlen(char *str);
 int _strcmp(char *s1, char *s2);
 int _strncmp(char *str1, char *str2, int n);
 char *_strdup(char *str);
-char *_strcat(char *dest, char *src);
+char *_strcatpath(char *dest, char *src);
 
 /* functions2.c */
 int _atoi(char *str);
@@ -59,6 +59,7 @@ void print_error(char *av, int count, char *cmd, char *msg);
 /* functions3.c */
 char *_strchr(const char *s, int c);
 char *_strtok(char *str, char *delim);
+char *_strcat(char *dest, char *src);
 
 
 /* free_array.c */
@@ -76,7 +77,8 @@ int run_cmd(char **tokens, char **env, char **av);
 /* edit_env.c */
 int _setenv(char *name, char *value, int overwrite);
 int _unsetenv(const char *name);
-char *_getenv(const char *name);
+int len_env(char **env);
+char *_getenv(char *key);
 
 /* my_cd.c */
 void my_cd(char **args);

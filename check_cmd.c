@@ -22,13 +22,13 @@ int check_cmd(char *cmd)
 			return (1);
 		return (0);
 	}
-	path = getenv("PATH");
+	path = _getenv("PATH");
 	path_copy = _strdup(path);
 	token = _strtok(path_copy, ":");
 	while (token != NULL)
 	{
-		cmd_path = _strcat(token, "/");
-		cmd_path = _strcat(cmd_path, cmd);
+		cmd_path = _strcatpath(token, "/");
+		cmd_path = _strcatpath(cmd_path, cmd);
 		if (stat(cmd_path, &st) == 0)
 		{
 			free(path_copy);

@@ -24,7 +24,7 @@ char *get_path(char *cmd)
 			return (cmd);
 		return (NULL);
 	}
-	path = getenv("PATH");
+	path = _getenv("PATH");
 	if (path == NULL)
 		return (NULL);
 	path_copy = _strdup(path);
@@ -33,8 +33,8 @@ char *get_path(char *cmd)
 	token = strtok(path_copy, ":");
 	while (token != NULL)
 	{
-		cmd_path = _strcat(token, "/");
-		cmd_path = _strcat(cmd_path, cmd);
+		cmd_path = _strcatpath(token, "/");
+		cmd_path = _strcatpath(cmd_path, cmd);
 		if (stat(cmd_path, &st) == 0)
 		{
 			free(path_copy);

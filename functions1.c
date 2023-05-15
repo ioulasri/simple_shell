@@ -84,13 +84,13 @@ char *_strdup(char *str)
 }
 
 /**
- * _strcat - concatenates two strings
+ * _strcatpath - concatenates two strings
  * @dest: destination string
  * @src: source string
  * Return: pointer to the concatenated string
  */
 
-char *_strcat(char *dest, char *src)
+char *_strcatpath(char *dest, char *src)
 {
 	int i = 0, j = 0;
 	char *concat = NULL;
