@@ -21,7 +21,7 @@ int main(int ac, char **av, char **env)
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
 		signal(SIGINT, sigint_handler);
-		n_characters = getline(&buf, &buf_size, stdin);
+		n_characters = _getline(&buf, &buf_size, STDIN_FILENO);
 		if (n_characters == EOF)
 		{
 			if (isatty(STDIN_FILENO))

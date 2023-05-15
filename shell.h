@@ -5,32 +5,16 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
+#include <errno.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
 
 #define READ_SIZE 1024
+#define BUFSIZE 1024
 
 extern char **environ;
 /* get_line.c */
-
-typedef struct list_s
-{
-    char *buffer;
-    char **args;
-    int status;
-    pid_t pid;
-    struct list_s *next;
-} list_t;
-
-char *get_line(char **buffer, size_t *buffer_size, int fd);
-int found_newline(char *buf);
-list_t *add_node_end(list_t **head);
-void read_and_stash(int fd, list_t **head, char *buffer);
-void extract_line(list_t **head, char **buf, char **line);
-void generate_line(list_t **head, char *buf, char **line);
-void clean_stash(list_t **head);
-void free_stash(list_t **head);
-
+ssize_t _getline(char **buffer, size_t *bufsize, int fd);
 
 /* handle_input.c */
 int handle_input(char *buf, char **env, char **av);
@@ -60,7 +44,7 @@ void print_error(char *av, int count, char *cmd, char *msg);
 char *_strchr(const char *s, int c);
 char *_strtok(char *str, char *delim);
 char *_strcat(char *dest, char *src);
-
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
 /* free_array.c */
 void free_array(char **array);
