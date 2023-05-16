@@ -95,35 +95,3 @@ void handle_echo_args(char *tokens, int *status)
 	write(STDOUT_FILENO, "\n", 1);
 }
 
-/**
- * handle_echo - handles the echo builtin
- * @tokens: array of strings
- * Return: 1 if the command is a builtin, 0 if not
- */
-
-int handle_echo(char **tokens, int *status)
-{
-	int i = 1, flag = 0;
-
-	while (tokens[i])
-	{
-		if (_strncmp(tokens[i], "$", 1) == 0 || _strncmp(tokens[i], "$$", 2) == 0
-			|| _strncmp(tokens[i], "$?", 2) == 0)
-		{
-			handle_echo_args(tokens[i], status);
-			flag = 1;
-		}
-		else
-		{
-			write(STDOUT_FILENO, tokens[i], _strlen(tokens[i]));
-			if (tokens[i + 1] != NULL)
-				write(STDOUT_FILENO, " ", 1);
-		}
-		if (tokens[i + 1] != NULL)
-			write(STDOUT_FILENO, " ", 1);
-		i++;
-	}
-	if (flag == 0)
-		write(STDOUT_FILENO, "\n", 1);
-	return (1);
-}
