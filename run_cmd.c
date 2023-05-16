@@ -5,7 +5,7 @@
  * @tokens: tokens
  * @env: environment variables
  * @av: argv
- * Return: 0 on success, 1 on failure
+ * Return: 0 on success, 1 on failure.
  */
 
 int run_cmd(char **tokens, char **env, char **av)
