@@ -82,3 +82,33 @@ char *_strdup(char *str)
 	dup[i] = '\0';
 	return (dup);
 }
+
+/**
+ * _strcatpath - concatenates two strings
+ * @dest: destination string
+ * @src: source string
+ * Return: pointer to the concatenated string
+ */
+
+char *_strcatpath(char *dest, char *src)
+{
+	int i = 0, j = 0;
+	char *concat = NULL;
+
+	concat = malloc(sizeof(char) * (_strlen(dest) + _strlen(src) + 1));
+	if (concat == NULL)
+		return (NULL);
+	while (dest[i] != '\0')
+	{
+		concat[i] = dest[i];
+		i++;
+	}
+	while (src[j] != '\0')
+	{
+		concat[i] = src[j];
+		i++;
+		j++;
+	}
+	concat[i] = '\0';
+	return (concat);
+}
