@@ -22,6 +22,9 @@ int check_cmd(char *cmd)
 			return (1);
 		return (0);
 	}
+	path = _getenv("PATH");
+	path_copy = _strdup(path);
+	token = _strtok(path_copy, ":");
 	while (token != NULL)
 	{
 		cmd_path = _strcatpath(token, "/");
