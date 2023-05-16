@@ -107,7 +107,13 @@ int handle_echo(char **tokens, int *status)
 
 	while (tokens[i])
 	{
-		if (_strncmp(tokens[i], "$", 1) == 0 || _strncmp(tokens[i], "$$", 2) == 0
+		if (_strncmp(tokens[i], "\\", 1) == 0)
+		{
+			write(STDOUT_FILENO, &tokens[i][1], 1);
+			if (tokens[i + 1] != NULL)
+				write(STDOUT_FILENO, " ", 1);
+		}
+		else if (_strncmp(tokens[i], "$", 1) == 0 || _strncmp(tokens[i], "$$", 2) == 0
 			|| _strncmp(tokens[i], "$?", 2) == 0)
 		{
 			handle_echo_args(tokens[i], status);
@@ -119,8 +125,6 @@ int handle_echo(char **tokens, int *status)
 			if (tokens[i + 1] != NULL)
 				write(STDOUT_FILENO, " ", 1);
 		}
-		if (tokens[i + 1] != NULL)
-			write(STDOUT_FILENO, " ", 1);
 		i++;
 	}
 	if (flag == 0)
