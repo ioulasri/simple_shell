@@ -80,4 +80,7 @@ void handle_echo_args(char *tokens, int *status);
 char *get__env(char *key);
 char *to_upper(char *str);
 
+/* handle_sep.c */
+int handle_sep(char **tokens, char **env, char **av);
+
 #endif /* SHELL_H */

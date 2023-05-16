@@ -10,10 +10,9 @@
 
 int run_cmd(char **tokens, char **env, char **av)
 {
+	int is_built_in = 0, cmd_exits = 0;
 	char *path = NULL;
-	int is_built_in = 0;
 	pid_t pid = 0;
-	int cmd_exits = 0;
 
 	is_built_in = builtins(tokens, env);
 	cmd_exits = check_cmd(tokens[0]);

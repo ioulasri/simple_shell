@@ -19,7 +19,7 @@ int main(int ac, char **av, char **env)
 	while (shell)
 	{
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "$ ", 2);
+			write(STDOUT_FILENO, "Code with imad$ ", 16);
 		signal(SIGINT, sigint_handler);
 		n_characters = _getline(&buf, &buf_size, STDIN_FILENO);
 		if (n_characters == EOF)

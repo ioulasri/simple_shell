@@ -8,15 +8,15 @@
 
 char *to_upper(char *str)
 {
-    int i = 0;
+	int i = 0;
 
-    while (str[i] != '\0')
-    {
-        if (str[i] >= 'a' && str[i] <= 'z')
-            str[i] -= 32;
-        i++;
-    }
-    return (str);
+	while (str[i] != '\0')
+	{
+		if (str[i] >= 'a' && str[i] <= 'z')
+			str[i] -= 32;
+		i++;
+	}
+	return (str);
 }
 
 
@@ -28,27 +28,27 @@ char *to_upper(char *str)
 
 char *get__env(char *key)
 {
-    char *value = NULL;
-    int i = 0, j = 0, len_key = 0;
+	char *value = NULL;
+	int i = 0, j = 0, len_key = 0;
 
-    if (key == NULL)
-        return (NULL);
-    len_key = _strlen(key);
-    while (environ[i])
-    {
-        while (environ[i][j] == key[j])
-        {
-            if (j == len_key - 1)
-            {
-                value = environ[i] + len_key + 1;
-                return (value);
-            }
-            j++;
-        }
-        i++;
-        j = 0;
-    }
-    return (NULL);
+	if (key == NULL)
+		return (NULL);
+	len_key = _strlen(key);
+	while (environ[i])
+	{
+		while (environ[i][j] == key[j])
+		{
+			if (j == len_key - 1)
+			{
+				value = environ[i] + len_key + 1;
+				return (value);
+			}
+			j++;
+		}
+		i++;
+		j = 0;
+	}
+	return (NULL);
 }
 
 /**
@@ -59,40 +59,40 @@ char *get__env(char *key)
 
 void handle_echo_args(char *tokens, int *status)
 {
-    char *value = NULL;
+	char *value = NULL;
 
-    if (tokens == NULL)
-    {
-        write(STDOUT_FILENO, "\n", 1);
-        return;
-    }
-    if (_strncmp(tokens, "$", 1) == 0)
-    {
-        value = get__env(to_upper(tokens) + 1);
-        if (value != NULL)
-        {
-            write(STDOUT_FILENO, value, _strlen(value));
-            write(STDOUT_FILENO, "\n", 1);
-            return;
-        }
-    }
-    if (_strncmp(tokens, "$$", 2) == 0)
-    {
-        value = _itoa(getpid());
-        write(STDOUT_FILENO, value, _strlen(value));
-        write(STDOUT_FILENO, "\n", 1);
-        free(value);
-        return;
-    }
-    if (_strncmp(tokens, "$?", 2) == 0)
-    {
-        value = _itoa(*status);
-        write(STDOUT_FILENO, value, _strlen(value));
-        write(STDOUT_FILENO, "\n", 1);
-        free(value);
-        return;
-    }
-    write(STDOUT_FILENO, "\n", 1);
+	if (tokens == NULL)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		return;
+	}
+	if (_strncmp(tokens, "$", 1) == 0)
+	{
+		value = get__env(to_upper(tokens) + 1);
+		if (value != NULL)
+		{
+			write(STDOUT_FILENO, value, _strlen(value));
+			write(STDOUT_FILENO, "\n", 1);
+			return;
+		}
+	}
+	if (_strncmp(tokens, "$$", 2) == 0)
+	{
+		value = _itoa(getpid());
+		write(STDOUT_FILENO, value, _strlen(value));
+		write(STDOUT_FILENO, "\n", 1);
+		free(value);
+		return;
+	}
+	if (_strncmp(tokens, "$?", 2) == 0)
+	{
+		value = _itoa(*status);
+		write(STDOUT_FILENO, value, _strlen(value));
+		write(STDOUT_FILENO, "\n", 1);
+		free(value);
+		return;
+	}
+	write(STDOUT_FILENO, "\n", 1);
 }
 
 /**
@@ -103,27 +103,27 @@ void handle_echo_args(char *tokens, int *status)
 
 int handle_echo(char **tokens, int *status)
 {
-    int i = 1, flag = 0;
+	int i = 1, flag = 0;
 
-    while (tokens[i])
-    {
-        if (_strncmp(tokens[i], "$", 1) == 0 || _strncmp(tokens[i], "$$", 2) == 0
-            || _strncmp(tokens[i], "$?", 2) == 0)
-        {
-            handle_echo_args(tokens[i], status);
-            flag = 1;
-        }
-        else
-        {
-            write(STDOUT_FILENO, tokens[i], _strlen(tokens[i]));
-            if (tokens[i + 1] != NULL)
-                write(STDOUT_FILENO, " ", 1);
-        }
-        if (tokens[i + 1] != NULL)
-            write(STDOUT_FILENO, " ", 1);
-        i++;
-    }
-    if (flag == 0)
-        write(STDOUT_FILENO, "\n", 1);
-    return (1);
+	while (tokens[i])
+	{
+		if (_strncmp(tokens[i], "$", 1) == 0 || _strncmp(tokens[i], "$$", 2) == 0
+			|| _strncmp(tokens[i], "$?", 2) == 0)
+		{
+			handle_echo_args(tokens[i], status);
+			flag = 1;
+		}
+		else
+		{
+			write(STDOUT_FILENO, tokens[i], _strlen(tokens[i]));
+			if (tokens[i + 1] != NULL)
+				write(STDOUT_FILENO, " ", 1);
+		}
+		if (tokens[i + 1] != NULL)
+			write(STDOUT_FILENO, " ", 1);
+		i++;
+	}
+	if (flag == 0)
+		write(STDOUT_FILENO, "\n", 1);
+	return (1);
 }

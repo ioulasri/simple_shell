@@ -8,32 +8,32 @@
 
 int check_alias(char *cmd)
 {
-    int i = 0;
-    int j = 0;
-    int len = 0;
-    char *alias = NULL;
+	int i = 0;
+	int j = 0;
+	int len = 0;
+	char *alias = NULL;
 
-    if (cmd == NULL)
-        return (0);
-    len = _strlen(cmd);
-    for (i = 0; i < len; i++)
-    {
-        if (cmd[i] == '=')
-            break;
-    }
-    alias = malloc(sizeof(char) * (i + 1));
-    if (alias == NULL)
-        return (0);
-    for (j = 0; j < i; j++)
-        alias[j] = cmd[j];
-    alias[j] = '\0';
-    if (get_alias(alias) != NULL)
-    {
-        free(alias);
-        return (1);
-    }
-    free(alias);
-    return (0);
+	if (cmd == NULL)
+		return (0);
+	len = _strlen(cmd);
+	for (i = 0; i < len; i++)
+	{
+		if (cmd[i] == '=')
+			break;
+	}
+	alias = malloc(sizeof(char) * (i + 1));
+	if (alias == NULL)
+		return (0);
+	for (j = 0; j < i; j++)
+		alias[j] = cmd[j];
+	alias[j] = '\0';
+	if (get_alias(alias) != NULL)
+	{
+		free(alias);
+		return (1);
+	}
+	free(alias);
+	return (0);
 }
 
 /**
@@ -44,18 +44,18 @@ int check_alias(char *cmd)
 
 char *get_alias(const char *name)
 {
-    int i = 0, j = 0;
+	int i = 0, j = 0;
 
-    while (environ[i] != NULL)
-    {
-        while (environ[i][j] != '=')
-            j++;
-        if (_strncmp(environ[i], (char *)name, j) == 0)
-            return (environ[i] + j + 1);
-        i++;
-        j = 0;
-    }
-    return (NULL);
+	while (environ[i] != NULL)
+	{
+		while (environ[i][j] != '=')
+			j++;
+		if (_strncmp(environ[i], (char *)name, j) == 0)
+			return (environ[i] + j + 1);
+		i++;
+		j = 0;
+	}
+	return (NULL);
 }
 
 /**
@@ -68,48 +68,48 @@ char *get_alias(const char *name)
 
 int set_alias(char *name, char *value, int overwrite)
 {
-    int i = 0, j = 0, k = 0;
-    char *new_var = NULL;
-    char **env = NULL;
+	int i = 0, j = 0, k = 0;
+	char *new_var = NULL;
+	char **env = NULL;
 
-    env = environ;
-    while (env[i] != NULL)
-    {
-        while (env[i][j] != '=')
-            j++;
-        if (_strncmp(env[i], (char *)name, j) == 0)
-        {
-            if (overwrite == 1)
-            {
-                new_var = malloc(sizeof(char) * (_strlen(name) + _strlen(value) + 2));
-                if (new_var == NULL)
-                    return (-1);
-                for (k = 0; k < j; k++)
-                    new_var[k] = env[i][k];
-                new_var[k] = '=';
-                k++;
-                for (j = 0; value[j] != '\0'; j++, k++)
-                    new_var[k] = value[j];
-                new_var[k] = '\0';
-                env[i] = new_var;
-                return (0);
-            }
-            return (0);
-        }
-        i++;
-        j = 0;
-    }
-    new_var = malloc(sizeof(char) * (_strlen(name) + _strlen(value) + 2));
-    if (new_var == NULL)
-        return (-1);
-    for (k = 0; name[k] != '\0'; k++)
-        new_var[k] = name[k];
-    new_var[k] = '=';
-    k++;
-    for (j = 0; value[j] != '\0'; j++, k++)
-        new_var[k] = value[j];
-    new_var[k] = '\0';
-    env[i] = new_var;
-    env[i + 1] = NULL;
-    return (0);
+	env = environ;
+	while (env[i] != NULL)
+	{
+		while (env[i][j] != '=')
+			j++;
+		if (_strncmp(env[i], (char *)name, j) == 0)
+		{
+			if (overwrite == 1)
+			{
+				new_var = malloc(sizeof(char) * (_strlen(name) + _strlen(value) + 2));
+				if (new_var == NULL)
+					return (-1);
+				for (k = 0; k < j; k++)
+					new_var[k] = env[i][k];
+				new_var[k] = '=';
+				k++;
+				for (j = 0; value[j] != '\0'; j++, k++)
+					new_var[k] = value[j];
+				new_var[k] = '\0';
+				env[i] = new_var;
+				return (0);
+			}
+			return (0);
+		}
+		i++;
+		j = 0;
+	}
+	new_var = malloc(sizeof(char) * (_strlen(name) + _strlen(value) + 2));
+	if (new_var == NULL)
+		return (-1);
+	for (k = 0; name[k] != '\0'; k++)
+		new_var[k] = name[k];
+	new_var[k] = '=';
+	k++;
+	for (j = 0; value[j] != '\0'; j++, k++)
+		new_var[k] = value[j];
+	new_var[k] = '\0';
+	env[i] = new_var;
+	env[i + 1] = NULL;
+	return (0);
 }
