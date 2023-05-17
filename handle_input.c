@@ -52,7 +52,7 @@ int handle_input(char *buf, char **env, char **av) {
 	{
 		tokens = tokenize(commands[i]);
 		if (tokens == NULL)
-			return 0;
+			return (-1);
 		if (tokens[0] == NULL)
 		{
 			i++;
@@ -62,6 +62,8 @@ int handle_input(char *buf, char **env, char **av) {
 			return (-1);
 		i++;
 	}
+	free(tokens);
+	free(commands);
     return 0;
 }
 
