@@ -24,23 +24,21 @@ int check_cmd(char *cmd)
 	}
 	path = _getenv("PATH");
 	path_copy = _strdup(path);
-	token = strtok(path_copy, ":");
+	token = _strtok(path_copy, ":");
 	while (token != NULL)
 	{
 		cmd_path = malloc(sizeof(char) * (_strlen(token) + _strlen(cmd) + 2));
-		if (cmd_path == NULL)
-			return (0);
 		_strcpy(cmd_path, token);
 		_strcat(cmd_path, "/");
 		_strcat(cmd_path, cmd);
 		if (stat(cmd_path, &st) == 0)
 		{
-			free(cmd_path);
 			free(path_copy);
+			free(cmd_path);
 			return (1);
 		}
+		token = _strtok(NULL, ":");
 		free(cmd_path);
-		token = strtok(NULL, ":");
 	}
 	free(path_copy);
 	return (0);
