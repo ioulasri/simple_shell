@@ -32,7 +32,7 @@ int builtins(char **tokens, char **env)
 	{
 		if (tokens[1] != NULL)
 			i = _atoi(tokens[1]);
-		free(tokens);
+		free_array(tokens);
 		exit(i);
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)

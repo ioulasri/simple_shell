@@ -19,7 +19,7 @@ int main(int ac, char **av, char **env)
 	while (shell)
 	{
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, "Code with imad$ ", 16);
+			write(STDOUT_FILENO, "$ ", 2);
 		signal(SIGINT, sigint_handler);
 		n_characters = _getline(&buf, &buf_size, STDIN_FILENO);
 		if (n_characters == EOF)
@@ -33,6 +33,7 @@ int main(int ac, char **av, char **env)
 		if (buf[0] == '\n')
 			continue;
 		handle_input(buf, env, av);
+		free(buf);
 		buf_size = 0;
 		buf = NULL;
 	}

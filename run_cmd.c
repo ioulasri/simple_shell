@@ -23,16 +23,12 @@ int run_cmd(char **tokens, char **env, char **av)
 		if (pid == -1)
 		{
 			perror("Error");
-			free_array(tokens);
 			return (-1);
 		}
 		if (pid == 0)
 		{
 			if (execve(path, tokens, env) == -1)
-			{
-				free(tokens);
 				return (-1);
-			}
 		}
 		else
 			wait(&ex_status);
