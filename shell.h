@@ -78,7 +78,6 @@ int set_alias(char *name, char *value, int overwrite);
 int handle_echo(char **tokens, int *status);
 void handle_echo_args(char *tokens, int *status);
 char *get__env(char *key);
-char *to_upper(char *str);
 
 /* handle_sep.c */
 int handle_sep(char **tokens, char **env, char **av);
