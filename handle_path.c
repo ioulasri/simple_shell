@@ -38,6 +38,11 @@ char *get_path(char *cmd)
 		if (stat(cmd_path, &st) == 0)
 		{
 			free(path_copy);
+			free(path);
+			free(cmd);
+			free(token);
+			free(cmd_path);
+			free(path_copy);
 			return (cmd_path);
 		}
 		token = strtok(NULL, ":");
