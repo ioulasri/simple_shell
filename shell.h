@@ -20,7 +20,7 @@ ssize_t _getline(char **buffer, size_t *bufsize, int fd);
 
 /* handle_input.c */
 int handle_input(char *buf, char **env, char **av);
-void sigint_handler(int signal);
+void sigint_handler(int sigint);
 
 /* split_string.c */
 char **tokenize(char *buf);
@@ -83,4 +83,5 @@ char *to_upper(char *str);
 /* handle_sep.c */
 int handle_sep(char **tokens, char **env, char **av);
 
+char *cut_string(char *str);
 #endif /* SHELL_H */

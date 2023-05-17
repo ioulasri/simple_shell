@@ -16,12 +16,13 @@ int main(int ac, char **av, char **env)
 	int shell = 1;
 	(void)ac;
 
+	signal(SIGINT, sigint_handler);
 	while (shell)
 	{
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
-		signal(SIGINT, sigint_handler);
-		n_characters = _getline(&buf, &buf_size, STDIN_FILENO);
+		n_characters = getline(&buf, &buf_size, stdin);
+		cut_string(buf);
 		if (n_characters == EOF)
 		{
 			if (isatty(STDIN_FILENO))
@@ -33,9 +34,30 @@ int main(int ac, char **av, char **env)
 		if (buf[0] == '\n')
 			continue;
 		handle_input(buf, env, av);
-		free(buf);
 		buf_size = 0;
 		buf = NULL;
 	}
-	return (0);
 }
+
+/**
+ * cut_string - cuts a string when #
+ * @str: string to cut
+ * Return: string cut
+ */
+
+char *cut_string(char *str)
+{
+	int i = 0;
+
+	while (str[i] != '\0')
+	{
+		if (str[i] == '#')
+		{
+			str[i] = '\0';
+			break;
+		}
+		i++;
+	}
+	return (str);
+}
+

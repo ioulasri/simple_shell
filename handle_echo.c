@@ -1,26 +1,6 @@
 #include "shell.h"
 
 /**
- * to_upper - converts a string to uppercase
- * @str: string to convert
- * Return: pointer to the converted string
- */
-
-char *to_upper(char *str)
-{
-	int i = 0;
-
-	while (str[i] != '\0')
-	{
-		if (str[i] >= 'a' && str[i] <= 'z')
-			str[i] -= 32;
-		i++;
-	}
-	return (str);
-}
-
-
-/**
  * get__env - gets the environment variable
  * @key: key to get the value of
  * Return: value of the environment variable
@@ -68,7 +48,7 @@ void handle_echo_args(char *tokens, int *status)
 	}
 	if (_strncmp(tokens, "$", 1) == 0)
 	{
-		value = get__env(to_upper(tokens) + 1);
+		value = get__env(tokens + 1);
 		if (value != NULL)
 		{
 			write(STDOUT_FILENO, value, _strlen(value));
@@ -96,7 +76,7 @@ void handle_echo_args(char *tokens, int *status)
 }
 
 /**
- * handle_echo - handles the echo builtin
+ * handle_echo - handles the echo builtin with '"'
  * @tokens: array of strings
  * Return: 1 if the command is a builtin, 0 if not
  */
@@ -119,6 +99,7 @@ int handle_echo(char **tokens, int *status)
 			handle_echo_args(tokens[i], status);
 			flag = 1;
 		}
+
 		else
 		{
 			write(STDOUT_FILENO, tokens[i], _strlen(tokens[i]));

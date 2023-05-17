@@ -12,6 +12,7 @@ int run_cmd(char **tokens, char **env, char **av)
 {
 	int is_built_in = 0, cmd_exits = 0;
 	char *path = NULL;
+	int status = 0;
 	pid_t pid = 0;
 
 	is_built_in = builtins(tokens, env);
@@ -36,7 +37,11 @@ int run_cmd(char **tokens, char **env, char **av)
 			}
 		}
 		else
-			wait(&ex_status);
+		{
+			wait(&status);
+			if (WIFEXITED(status))
+				ex_status = WEXITSTATUS(status);
+		}
 		free(path);
 	}
 	if (is_built_in == 0 && cmd_exits == 0)
