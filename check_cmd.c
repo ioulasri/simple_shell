@@ -37,8 +37,8 @@ int check_cmd(char *cmd)
 			free(cmd_path);
 			return (1);
 		}
-		token = _strtok(NULL, ":");
 		free(cmd_path);
+		token = _strtok(NULL, ":");
 	}
 	free(path_copy);
 	return (0);

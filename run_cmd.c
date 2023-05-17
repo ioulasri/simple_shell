@@ -23,6 +23,7 @@ int run_cmd(char **tokens, char **env, char **av)
 		if (pid == -1)
 		{
 			perror("Error");
+			free(path);
 			return (-1);
 		}
 		if (pid == 0)
@@ -36,6 +37,7 @@ int run_cmd(char **tokens, char **env, char **av)
 		}
 		else
 			wait(&ex_status);
+		free(path);
 	}
 	if (is_built_in == 0 && cmd_exits == 0)
 	{
@@ -44,6 +46,5 @@ int run_cmd(char **tokens, char **env, char **av)
 		write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
 		write(STDERR_FILENO, ": not found\n", 12);
 	}
-	free(path);
 	return (0);
 }
