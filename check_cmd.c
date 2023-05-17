@@ -27,16 +27,18 @@ int check_cmd(char *cmd)
 	token = _strtok(path_copy, ":");
 	while (token != NULL)
 	{
-		cmd_path = _strcatpath(token, "/");
-		cmd_path = _strcatpath(cmd_path, cmd);
+		cmd_path = malloc(sizeof(char) * (_strlen(token) + _strlen(cmd) + 2));
+		_strcpy(cmd_path, token);
+		_strcat(cmd_path, "/");
+		_strcat(cmd_path, cmd);
 		if (stat(cmd_path, &st) == 0)
 		{
 			free(path_copy);
 			free(cmd_path);
 			return (1);
 		}
-		token = _strtok(NULL, ":");
 		free(cmd_path);
+		token = _strtok(NULL, ":");
 	}
 	free(path_copy);
 	return (0);

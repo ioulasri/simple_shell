@@ -23,21 +23,28 @@ int run_cmd(char **tokens, char **env, char **av)
 		if (pid == -1)
 		{
 			perror("Error");
-			free_array(tokens);
+			free(path);
 			return (-1);
 		}
 		if (pid == 0)
 		{
 			if (execve(path, tokens, env) == -1)
 			{
-				free(tokens);
-				return (-1);
+				perror("Error");
+				free(path);
+				exit(1);
 			}
 		}
 		else
 			wait(&ex_status);
+		free(path);
 	}
 	if (is_built_in == 0 && cmd_exits == 0)
-		perror(av[0]);
+	{
+		write(STDERR_FILENO, av[0], _strlen(av[0]));
+		write(STDERR_FILENO, ": 1: ", 5);
+		write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
+		write(STDERR_FILENO, ": not found\n", 12);
+	}
 	return (0);
 }

@@ -32,7 +32,7 @@ int builtins(char **tokens, char **env)
 	{
 		if (tokens[1] != NULL)
 			i = _atoi(tokens[1]);
-		free(tokens);
+		free_array(tokens);
 		exit(i);
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)
@@ -49,7 +49,7 @@ int builtins(char **tokens, char **env)
 	{
 		if (tokens[1] == NULL)
 		{
-			print_env(env);
+			write(STDERR_FILENO, "Usage: setenv [VARIABLE] [VALUE]\n", 33);
 			return (1);
 		}
 		if (tokens[2] == NULL)
