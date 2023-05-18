@@ -43,7 +43,7 @@ int _constcharlen(const char *str);
 void print_error(char *av, int count, char *cmd, char *msg);
 
 /* functions3.c */
-char *_strchr(const char *s, int c);
+char *_strchr(char *s, char c);
 char *_strtok(char *str, char *delim);
 char *_strcat(char *dest, char *src);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);

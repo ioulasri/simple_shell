@@ -14,6 +14,8 @@ int check_cmd(char *cmd)
 	char *cmd_path = NULL;
 	struct stat st;
 
+	if (stat(cmd, &st) == 0)
+		return (1);
 	if (cmd == NULL)
 		return (0);
 	if (cmd[0] == '/')

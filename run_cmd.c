@@ -14,12 +14,16 @@ int run_cmd(char **tokens, char **env, char **av)
 	char *path = NULL;
 	int status = 0;
 	pid_t pid = 0;
+	struct stat st;
 
 	is_built_in = builtins(tokens, env);
 	cmd_exits = check_cmd(tokens[0]);
 	if (is_built_in == 0 && cmd_exits == 1)
 	{
-		path = get_path(tokens[0]);
+		if (stat(tokens[0], &st) == 0)
+			path = _strdup(tokens[0]);
+		else
+			path = get_path(tokens[0]);
 		pid = fork();
 		if (pid == -1)
 		{
@@ -40,7 +44,10 @@ int run_cmd(char **tokens, char **env, char **av)
 		{
 			wait(&status);
 			if (WIFEXITED(status))
+			{
 				ex_status = WEXITSTATUS(status);
+				_setenv("?", _itoa(ex_status), 1);
+			}
 		}
 		free(path);
 	}
@@ -49,7 +56,9 @@ int run_cmd(char **tokens, char **env, char **av)
 		write(STDERR_FILENO, av[0], _strlen(av[0]));
 		write(STDERR_FILENO, ": 1: ", 5);
 		write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
-		write(STDERR_FILENO, ": not found\n", 12);
+		write(STDERR_FILENO, ": Command was not found\n", 24);
+		ex_status = 127;
+		_setenv("?", _itoa(ex_status), 1);
 	}
 	return (0);
 }
