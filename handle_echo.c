@@ -33,7 +33,7 @@ char *get__env(char *key)
 
 /**
  * handle_echo_args - handles the $ builtin
- *  @tokens: array of strings
+ * @tokens: array of strings
  * @status: exit status
  */
 
@@ -78,6 +78,7 @@ void handle_echo_args(char *tokens, int *status)
 /**
  * handle_echo - handles the echo builtin with '"'
  * @tokens: array of strings
+ * @status: exit status
  * Return: 1 if the command is a builtin, 0 if not
  */
 

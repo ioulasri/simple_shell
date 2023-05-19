@@ -1,9 +1,9 @@
 #include "shell.h"
 
 /**
- * _getenv - gets an environment variable
- * @name: name of the variable
- * Return: pointer to the variable, NULL if not found
+ * _getenv - gets the environment variable
+ * @key: key to get the value of
+ * Return: value of the environment variable
  */
 
 char *_getenv(char *key)
@@ -29,12 +29,18 @@ char *_getenv(char *key)
 		if (_strcmp(key, env[i]) == 0)
 		{
 			path = strtok(NULL, "\n");
-			return(path);
+			return (path);
 		}
 		i++;
 	}
 	return (NULL);
 }
+
+/**
+ * len_env - gets the length of the environment
+ * @env: environment
+ * Return: length of the environment
+ */
 
 int len_env(char **env)
 {
@@ -47,7 +53,7 @@ int len_env(char **env)
 
 /**
  * _setenv - sets an environment variable
- * @name: name of the variable
+ * @key: name of the variable
  * @value: value of the variable
  * @overwrite: overwrite flag
  * Return: 0 on success, -1 on failure
@@ -55,11 +61,14 @@ int len_env(char **env)
 
 int _setenv(char *key, char *value, int overwrite)
 {
-	int i = 0, j = 0, k = 0;
-	char *new_var = NULL;
+	int i = 0, j = 0, len_key = 0, len_value = 0;
 	char **env = NULL;
 
 	env = environ;
+	if (key == NULL || value == NULL)
+		return (-1);
+	len_key = _strlen(key);
+	len_value = _strlen(value);
 	while (env[i] != NULL)
 	{
 		while (env[i][j] != '=')
@@ -68,17 +77,10 @@ int _setenv(char *key, char *value, int overwrite)
 		{
 			if (overwrite == 1)
 			{
-				new_var = malloc(sizeof(char) * (_strlen(key) + _strlen(value) + 2));
-				if (new_var == NULL)
-					return (-1);
-				for (k = 0; k < j; k++)
-					new_var[k] = env[i][k];
-				new_var[k] = '=';
-				k++;
-				for (j = 0; value[j] != '\0'; j++, k++)
-					new_var[k] = value[j];
-				new_var[k] = '\0';
-				env[i] = new_var;
+				env[i] = malloc(sizeof(char) * (len_key + len_value + 2));
+				_strcpy(env[i], key);
+				_strcat(env[i], "=");
+				_strcat(env[i], value);
 				return (0);
 			}
 			return (0);
@@ -86,24 +88,17 @@ int _setenv(char *key, char *value, int overwrite)
 		i++;
 		j = 0;
 	}
-	new_var = malloc(sizeof(char) * (_strlen(key) + _strlen(value) + 2));
-	if (new_var == NULL)
-		return (-1);
-	for (k = 0; key[k] != '\0'; k++)
-		new_var[k] = key[k];
-	new_var[k] = '=';
-	k++;
-	for (j = 0; value[j] != '\0'; j++, k++)
-		new_var[k] = value[j];
-	new_var[k] = '\0';
-	env[i] = new_var;
+	env[i] = malloc(sizeof(char) * (len_key + len_value + 2));
+	_strcpy(env[i], key);
+	_strcat(env[i], "=");
+	_strcat(env[i], value);
 	env[i + 1] = NULL;
 	return (0);
 }
 
 /**
  * _unsetenv - unsets an environment variable
- * @name: name of the variable
+ * @key: name of the variable
  * Return: 0 on success, -1 on failure
  */
 

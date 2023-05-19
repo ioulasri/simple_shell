@@ -7,10 +7,7 @@
 
 void my_cd(char **args)
 {
-	char **directories = NULL;
-	char *oldpwd = NULL;
-	char *pwd = NULL;
-	char *home = NULL;
+	char **directories = NULL, *oldpwd = NULL, *home = NULL;
 
 	if (args[1] == NULL)
 	{
@@ -48,18 +45,30 @@ void my_cd(char **args)
 		directories[0] = args[1];
 		directories[1] = NULL;
 	}
+	change_directory(directories, args[0]);
+	free(directories);
+}
+
+/**
+ * change_directory - changes the current working directory
+ * @directories: directories to change to
+ * @command_name: name of the command
+ */
+
+void change_directory(char **directories, char *command_name)
+{
+	char *oldpwd = _getenv("PWD");
+	char *pwd = getcwd(NULL, 0);
+
 	if (chdir(directories[0]) == -1)
 	{
-		print_error(args[0], 0, args[1], "can't cd to ");
+		print_error(command_name, 0, directories[0], "can't cd to ");
 		return;
 	}
 	else
 	{
-		oldpwd = _getenv("PWD");
-		pwd = getcwd(NULL, 0);
 		_setenv("OLDPWD", oldpwd, 1);
 		_setenv("PWD", pwd, 1);
 		free(pwd);
 	}
-	free(directories);
 }

@@ -27,6 +27,9 @@ char **tokenize(char *buf);
 
 /* handle_builtins.c */
 int builtins(char **tokens, char **env);
+int handle_builtins2(char **tokens);
+int handle_builtins3(char **tokens);
+int handle_builtins1(char **tokens, char **env);
 
 /* functions1.c */
 int _strlen(char *str);
@@ -59,6 +62,8 @@ char *get_path(char *cmd);
 
 /* run_cmd.c */
 int run_cmd(char **tokens, char **env, char **av);
+void pr_error(char **tokens, char **av);
+int fork_run(char **tokens, char **env);
 
 /* edit_env.c */
 int _setenv(char *name, char *value, int overwrite);
@@ -68,11 +73,7 @@ char *_getenv(char *key);
 
 /* my_cd.c */
 void my_cd(char **args);
-
-/* alias.c */
-char *get_alias(const char *name);
-int check_alias(char *cmd);
-int set_alias(char *name, char *value, int overwrite);
+void change_directory(char **directories, char *command_name);
 
 /* handle_echo.c */
 int handle_echo(char **tokens, int *status);

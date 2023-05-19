@@ -26,6 +26,24 @@ void print_env(char **env)
 
 int builtins(char **tokens, char **env)
 {
+	if (handle_builtins1(tokens, env))
+		return (1);
+	if (handle_builtins2(tokens))
+		return (1);
+	if (handle_builtins3(tokens))
+		return (1);
+	return (0);
+}
+
+/**
+ * handle_builtins1 - handles the builtins
+ * @tokens: array of strings
+ * @env: environment variables
+ * Return: 1 if the command is a builtin, 0 if not
+ */
+
+int handle_builtins1(char **tokens, char **env)
+{
 	int i = 0;
 
 	if (_strncmp(tokens[0], "exit", 4) == 0)
@@ -44,6 +62,17 @@ int builtins(char **tokens, char **env)
 		}
 		return (1);
 	}
+	return (0);
+}
+
+/**
+ * handle_builtins2 - handles the builtins
+ * @tokens: array of strings
+ * Return: 1 if the command is a builtin, 0 if not
+ */
+
+int handle_builtins2(char **tokens)
+{
 	if (_strncmp(tokens[0], "setenv", 6) == 0)
 	{
 		if (tokens[1] == NULL)
@@ -69,6 +98,17 @@ int builtins(char **tokens, char **env)
 		_unsetenv(tokens[1]);
 		return (1);
 	}
+	return (0);
+}
+
+/**
+ * handle_builtins3 - handles the builtins
+ * @tokens: array of strings
+ * Return: 1 if the command is a builtin, 0 if not
+ */
+
+int handle_builtins3(char **tokens)
+{
 	if (_strncmp(tokens[0], "clear", 5) == 0)
 	{
 		write(STDOUT_FILENO, "\033[H\033[J", 6);

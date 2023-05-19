@@ -1,10 +1,10 @@
 #include "shell.h"
 
 /**
- * getline - gets a line from stdin using read
- * buffer: buffer to store the line
- * bufsize: size of the buffer
- * fd: file descriptor
+ * _getline - gets a line from a file descriptor
+ * @buffer: buffer to store the line
+ * @bufsize: size of the buffer
+ * @fd: file descriptor
  * Return: number of characters read
  */
 
