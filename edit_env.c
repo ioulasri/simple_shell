@@ -101,30 +101,3 @@ int _setenv(char *key, char *value, int overwrite)
 	return (0);
 }
 
-/**
- * _unsetenv - unsets an environment variable
- * @name: name of the variable
- * Return: 0 on success, -1 on failure
- */
-
-int _unsetenv(char *key)
-{
-	int i = 0, j = 0, k = 0;
-	char **env = NULL;
-
-	env = environ;
-	while (env[i] != NULL)
-	{
-		while (env[i][j] != '=')
-			j++;
-		if (_strncmp(env[i], (char *)key, j) == 0)
-		{
-			for (k = i; env[k] != NULL; k++)
-				env[k] = env[k + 1];
-			return (0);
-		}
-		i++;
-		j = 0;
-	}
-	return (-1);
-}
