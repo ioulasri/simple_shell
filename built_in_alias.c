@@ -36,24 +36,3 @@ int check_alias(char *cmd)
 	return (0);
 }
 
-/**
- * get_alias - gets an alias
- * @name: name of the alias
- * Return: pointer to the alias, NULL if not found
- */
-
-char *get_alias(const char *name)
-{
-	int i = 0, j = 0;
-
-	while (environ[i] != NULL)
-	{
-		while (environ[i][j] != '=')
-			j++;
-		if (_strncmp(environ[i], (char *)name, j) == 0)
-			return (environ[i] + j + 1);
-		i++;
-		j = 0;
-	}
-	return (NULL);
-}
