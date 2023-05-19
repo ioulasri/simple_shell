@@ -20,7 +20,7 @@ ssize_t _getline(char **buffer, size_t *bufsize, int fd);
 
 /* handle_input.c */
 int handle_input(char *buf, char **env, char **av);
-void sigint_handler(int signal);
+void sigint_handler(int sigint);
 
 /* split_string.c */
 char **tokenize(char *buf);
@@ -43,7 +43,7 @@ int _constcharlen(const char *str);
 void print_error(char *av, int count, char *cmd, char *msg);
 
 /* functions3.c */
-char *_strchr(const char *s, int c);
+char *_strchr(char *s, char c);
 char *_strtok(char *str, char *delim);
 char *_strcat(char *dest, char *src);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
@@ -78,9 +78,9 @@ int set_alias(char *name, char *value, int overwrite);
 int handle_echo(char **tokens, int *status);
 void handle_echo_args(char *tokens, int *status);
 char *get__env(char *key);
-char *to_upper(char *str);
 
 /* handle_sep.c */
 int handle_sep(char **tokens, char **env, char **av);
 
+char *cut_string(char *str);
 #endif /* SHELL_H */
