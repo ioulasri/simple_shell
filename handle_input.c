@@ -60,14 +60,3 @@ int handle_input(char *buf, char **env, char **av)
 	free(tokens);
 	return (0);
 }
-
-/**
- * sigint_handler - handles the signal SIGINT
- * @signal: signal to handle
- */
-
-void sigint_handler(int signal)
-{
-	(void)signal;
-	write(STDOUT_FILENO, "\n$ ", 3);
-}
