@@ -30,33 +30,3 @@ char **tokenizez(char *str, char *delim)
 	return (tokens);
 }
 
-/**
- * handle_input - handles the input from the user and executes it
- * handling ; and run multiple commands
- * @buf: buffer to store the input
- * @env: environment variables
- * @av: arguments vector
- * Return: 0 on success
- */
-
-int handle_input(char *buf, char **env, char **av)
-{
-	char **tokens = NULL, **cmd = NULL;
-	int i = 0, bufsize = 0;
-
-	bufsize = _strlen(buf);
-	cmd = malloc(sizeof(char *) * bufsize);
-	if (cmd == NULL)
-		return (-1);
-	tokens = tokenizez(buf, ";\n");
-	while (tokens[i] != NULL)
-	{
-		cmd = tokenizez(tokens[i], " \t\r\n\a");
-		if (cmd[0] != NULL)
-			run_cmd(cmd, env, av);
-		free(cmd);
-		i++;
-	}
-	free(tokens);
-	return (0);
-}
