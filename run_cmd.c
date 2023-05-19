@@ -54,9 +54,9 @@ int run_cmd(char **tokens, char **env, char **av)
 	if (is_built_in == 0 && cmd_exits == 0)
 	{
 		write(STDERR_FILENO, av[0], _strlen(av[0]));
-		write(STDERR_FILENO, ": 1: ", 5);
+		write(STDERR_FILENO, ": line 1: ", 10);
 		write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
-		write(STDERR_FILENO, ": Command was not found\n", 24);
+		write(STDERR_FILENO, ": command not found\n", 20);
 		ex_status = 127;
 		_setenv("?", _itoa(ex_status), 1);
 	}
