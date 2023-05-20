@@ -39,6 +39,7 @@ int fork_run(char **tokens, char **env)
 	if (pid == -1)
 	{
 		perror("Error");
+		_setenv("?", "127", 1);
 		free(path);
 		return (-1);
 	}
@@ -47,6 +48,7 @@ int fork_run(char **tokens, char **env)
 		if (execve(path, tokens, env) == -1)
 		{
 			perror("Error");
+			_setenv("?", "127", 1);
 			free(path);
 			exit(1);
 		}
