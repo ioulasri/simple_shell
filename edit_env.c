@@ -28,7 +28,7 @@ char *_getenv(char *key)
 		path = strtok(env[i], "=");
 		if (_strcmp(key, env[i]) == 0)
 		{
-			path = strtok(NULL, "\n");
+			path = _strtok(NULL, "\n");
 			return (path);
 		}
 		i++;

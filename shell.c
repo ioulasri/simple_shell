@@ -60,4 +60,3 @@ char *cut_string(char *str)
 	}
 	return (str);
 }
-
