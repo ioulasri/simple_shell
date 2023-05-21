@@ -17,52 +17,5 @@ void pr_error(char **tokens, char **av)
 	_setenv("?", _itoa(ex_status), 1);
 }
 
-/**
- * fork_run - forks and runs a command
- * @tokens: tokens
- * @env: environment variables
- * Return: 0 on success, 1 on failure.
- */
 
-int fork_run(char **tokens, char **env)
-{
-	pid_t pid;
-	int status;
-	char *path;
-	struct stat st;
-
-	if (stat(tokens[0], &st) == 0)
-		path = _strdup(tokens[0]);
-	else
-		path = get_path(tokens[0]);
-	pid = fork();
-	if (pid == -1)
-	{
-		perror("Error");
-		_setenv("?", "127", 1);
-		free(path);
-		return (-1);
-	}
-	if (pid == 0)
-	{
-		if (execve(path, tokens, env) == -1)
-		{
-			perror("Error");
-			_setenv("?", "127", 1);
-			free(path);
-			exit(1);
-		}
-	}
-	else
-	{
-		wait(&status);
-		if (WIFEXITED(status))
-		{
-			ex_status = WEXITSTATUS(status);
-			_setenv("?", _itoa(ex_status), 1);
-		}
-	}
-	free(path);
-	return (0);
-}
 
