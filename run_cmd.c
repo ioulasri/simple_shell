@@ -16,6 +16,3 @@ void pr_error(char **tokens, char **av)
 	ex_status = 127;
 	_setenv("?", _itoa(ex_status), 1);
 }
-
-
-
