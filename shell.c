@@ -38,3 +38,25 @@ int main(int ac, char **av, char **env)
 		buf = NULL;
 	}
 }
+
+/**
+ * cut_string - cuts a string when #
+ * @str: string to cut
+ * Return: string cut
+ */
+
+char *cut_string(char *str)
+{
+	int i = 0;
+
+	while (str[i] != '\0')
+	{
+		if (str[i] == '#')
+		{
+			str[i] = '\0';
+			break;
+		}
+		i++;
+	}
+	return (str);
+}
