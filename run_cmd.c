@@ -66,29 +66,3 @@ int fork_run(char **tokens, char **env)
 	return (0);
 }
 
-/**
- * run_cmd - runs a command
- * @tokens: tokens
- * @env: environment variables
- * @av: argv
- * Return: 0 on success, 1 on failure.
- */
-
-int run_cmd(char **tokens, char **env, char **av)
-{
-	int is_built_in = 0, cmd_exits = 0;
-
-	is_built_in = builtins(tokens, env);
-	cmd_exits = check_cmd(tokens[0]);
-	if (is_built_in == 0 && cmd_exits == 1)
-	{
-		fork_run(tokens, env);
-		return (0);
-	}
-	if (is_built_in == 0 && cmd_exits == 0)
-	{
-		pr_error(tokens, av);
-		return (1);
-	}
-	return (0);
-}
