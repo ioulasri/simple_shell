@@ -46,7 +46,7 @@ char *_itoa(int num);
 int _constcharlen(const char *str);
 void print_error(char *av, int count, char *cmd, char *msg);
 
-/* functions3.c */
+/* function3.c */
 char *_strchr(char *s, char c);
 char *_strtok(char *str, char *delim);
 char *_strcat(char *dest, char *src);
