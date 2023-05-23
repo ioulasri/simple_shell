@@ -13,7 +13,6 @@
 #define READ_SIZE 1024
 #define BUFSIZE 1024
 
-int ex_status;
 extern char **environ;
 
 /* get_line.c */

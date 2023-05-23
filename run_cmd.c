@@ -9,6 +9,8 @@
 
 void pr_error(char **tokens, char **av)
 {
+	int ex_status;
+
 	write(STDERR_FILENO, av[0], _strlen(av[0]));
 	write(STDERR_FILENO, ": line 1: ", 10);
 	write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
@@ -27,7 +29,7 @@ void pr_error(char **tokens, char **av)
 int fork_run(char **tokens, char **env)
 {
 	pid_t pid;
-	int status;
+	int status, ex_status;
 	char *path;
 	struct stat st;
 

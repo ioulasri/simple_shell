@@ -82,9 +82,9 @@ void handle_echo_args(char *tokens, int *status)
  * Return: 1 if the command is a builtin, 0 if not
  */
 
-int handle_echo(char **tokens, int *status)
+int handle_echo(char **tokens)
 {
-	int i = 1, flag = 0, j = 0;
+	int i = 1, flag = 0, j = 0, status = 0;
 
 	if (tokens == NULL)
 	{
