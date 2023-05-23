@@ -19,11 +19,11 @@ char **tokenizez(char *str, char *delim)
 	tokens = malloc(sizeof(char *) * bufsize);
 	if (tokens == NULL)
 		return (NULL);
-	token = _strtok(str, delim);
+	token = strtok(str, delim);
 	while (token != NULL)
 	{
 		tokens[i] = token;
-		token = _strtok(NULL, delim);
+		token = strtok(NULL, delim);
 		i++;
 	}
 	tokens[i] = NULL;

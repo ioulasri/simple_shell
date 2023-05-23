@@ -1,58 +1,58 @@
 #include "shell.h"
 
 /**
- * _strpbrk - searches a string for any of a set of bytes
- * @s: string to be searched
- * @accept: string containing the characters to match
- * Return: pointer to the byte in s that matches one of the bytes in accept
- */
-
-char *_strpbrk(char *s, char *accept)
-{
-	int i = 0, j = 0;
-
-	while (s[i] != '\0')
-	{
-		j = 0;
-		while (accept[j] != '\0')
-		{
-			if (s[i] == accept[j])
-				return (s + i);
-			j++;
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-/**
  * _strtok - tokenizes a string
- * @str: string to be tokenized
+ * @str: string to tokenize
  * @delim: delimiter
- * Return: pointer to the tokenized string
+ * Return: pointer to the first token found
  */
 
 char *_strtok(char *str, char *delim)
 {
 	static char *token;
-	static char *next_token;
-	char *delim_ptr = NULL;
+	static char *next;
+	char *delim_ptr;
 
 	if (str != NULL)
-		token = str;
-	else
-		token = next_token;
-	if (token == NULL)
+		next = str;
+	if (next == NULL)
 		return (NULL);
-	delim_ptr = _strpbrk(token, delim);
+	token = next;
+	delim_ptr = _strchr(token, *delim);
+
 	if (delim_ptr != NULL)
 	{
 		*delim_ptr = '\0';
-		next_token = delim_ptr + 1;
+		next = delim_ptr + 1;
 	}
 	else
-		next_token = NULL;
+		next = NULL;
 	return (token);
+}
+
+/**
+ * _strchr - locates a character in a string
+ * @s: string to search
+ * @c: character to find
+ * Return: pointer to the first occurrence of the character c
+ * in the string s, or NULL if the character is not found
+ */
+
+char *_strchr(char *s, char c)
+{
+	int i = 0;
+
+	while (s[i] != '\0')
+	{
+		if (s[i] == c)
+			break;
+		i++;
+	}
+
+	if (s[i] == c)
+		return (s + i);
+	else
+		return (NULL);
 }
 
 /**
@@ -113,28 +113,4 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 		new_ptr[i] = ((char *)ptr)[i];
 
 	return (new_ptr);
-}
-
-/**
- * _strchr - locates a character in a string
- * @s: string to be searched
- * @c: character to be located
- * Return: pointer to the first occurrence of the character c in the string s
- * or NULL if the character is not found
- */
-
-char *_strchr(char *s, char c)
-{
-	int i = 0;
-
-	while (s[i] != '\0')
-	{
-		if (s[i] == c)
-			break;
-		i++;
-	}
-	if (s[i] == c)
-		return (s + i);
-	else
-		return (NULL);
 }

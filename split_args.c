@@ -18,11 +18,11 @@ char **tokenize(char *buf)
 		perror("Error");
 		return (NULL);
 	}
-	token = _strtok(buf, " \t\n");
+	token = strtok(buf, " \t\n");
 	while (token != NULL)
 	{
 		tokens[i] = token;
-		token = _strtok(NULL, " \t\n");
+		token = strtok(NULL, " \t\n");
 		i++;
 	}
 	tokens[i] = NULL;
