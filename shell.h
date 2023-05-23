@@ -8,6 +8,7 @@
 #include <errno.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
+#include <signal.h>
 
 #define READ_SIZE 1024
 #define BUFSIZE 1024
