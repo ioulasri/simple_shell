@@ -116,7 +116,7 @@ int handle_builtins3(char **tokens)
 	}
 	if (_strncmp(tokens[0], "echo", 4) == 0)
 	{
-		handle_echo(tokens);
+		handle_echo(tokens, NULL);
 		return (1);
 	}
 	if (_strncmp(tokens[0], "cd", 2) == 0)
