@@ -40,6 +40,7 @@ char *get__env(char *key)
 void handle_echo_args(char *tokens, int *status)
 {
 	char *value = NULL;
+	(void)status;
 
 	if (tokens == NULL)
 	{
@@ -66,8 +67,7 @@ void handle_echo_args(char *tokens, int *status)
 	}
 	if (_strncmp(tokens, "$?", 2) == 0)
 	{
-		value = _itoa(*status);
-		write(STDOUT_FILENO, value, _strlen(value));
+		write(STDOUT_FILENO, get__env("?"), _strlen(get__env("?")));
 		write(STDOUT_FILENO, "\n", 1);
 		free(value);
 		return;

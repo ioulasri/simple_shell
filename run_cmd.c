@@ -29,7 +29,7 @@ void pr_error(char **tokens, char **av)
 int fork_run(char **tokens, char **env)
 {
 	pid_t pid;
-	int status, ex_status;
+	int status;
 	char *path;
 	struct stat st;
 
@@ -58,11 +58,7 @@ int fork_run(char **tokens, char **env)
 	else
 	{
 		wait(&status);
-		if (WIFEXITED(status))
-		{
-			ex_status = WEXITSTATUS(status);
-			_setenv("?", _itoa(ex_status), 1);
-		}
+		_setenv("?", _itoa(status), 1);
 	}
 	free(path);
 	return (0);
