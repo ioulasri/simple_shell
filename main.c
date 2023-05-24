@@ -33,6 +33,11 @@ int main(int argc, char **argv, char **env)
 		tokens = tokenize(line);
 		if (tokens == NULL)
 			continue;
+		if (tokens[0] == NULL)
+		{
+			free(tokens);
+			continue;
+		}
 		status = execute(tokens, argv, env);
 		free(tokens);
 	}
