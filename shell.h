@@ -21,11 +21,13 @@ ssize_t _getline(char **buffer, size_t *bufsize, int fd);
 /* handle_input.c */
 int handle_input(char *buf, char **env, char **av);
 void sigint_handler(int sigint);
+char **tokenizez(char *str, char *delim);
 
 /* split_string.c */
 char **tokenize(char *buf);
 
 /* handle_builtins.c */
+void print_env(char **env);
 int builtins(char **tokens, char **env);
 int handle_builtins2(char **tokens);
 int handle_builtins3(char **tokens);
@@ -59,6 +61,7 @@ int check_cmd(char *cmd);
 
 /* get_path.c */
 char *get_path(char *cmd);
+char *make_path(char *path, char *cmd);
 
 /* run_cmd.c */
 int run_cmd(char **tokens, char **env, char **av);
@@ -79,9 +82,6 @@ void change_directory(char **directories, char *command_name);
 int handle_echo(char **tokens, int *status);
 void handle_echo_args(char *tokens, int *status);
 char *get__env(char *key);
-
-/* handle_sep.c */
-int handle_sep(char **tokens, char **env, char **av);
 
 char *cut_string(char *str);
 #endif /* SHELL_H */
