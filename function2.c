@@ -72,14 +72,21 @@ void ffree(char **ptr)
 }
 
 /**
- * p_free - frees a pointer
- * @ptr: pointer to be freed
- * Return: void
+ * cut_string - cuts a string when # is encountered
+ * @str: string to be cut
  */
 
-void p_free(char *ptr)
+void cut_string(char *str)
 {
-	if (ptr != NULL)
-		free(ptr);
-	ptr = NULL;
+	int i = 0;
+
+	while (str[i] != '\0')
+	{
+		if (str[i] == '#')
+		{
+			str[i] = '\0';
+			return;
+		}
+		i++;
+	}
 }

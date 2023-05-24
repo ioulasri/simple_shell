@@ -30,6 +30,7 @@ int main(int argc, char **argv, char **env)
 		}
 		if (line[0] == '\n')
 			continue;
+		cut_string(line);
 		tokens = tokenize(line);
 		if (tokens == NULL)
 			continue;

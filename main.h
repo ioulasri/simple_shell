@@ -29,5 +29,6 @@ void ffree(char **ptr);
 void p_free(char *ptr);
 int builtins(char **tokens, char **argv, char **env);
 int _atoi(char *str);
+void cut_string(char *str);
 
 #endif /* _MAIN_H_ */
