@@ -32,14 +32,12 @@ void print_env(char **env)
 
 int builtins(char **tokens, char **argv, char **env)
 {
-	int status;
 	(void)argv;
 
-	status = last_exit(0);
 	if (_strncmp(tokens[0], "exit", 4) == 0)
 	{
 		free(tokens);
-		exit(status);
+		exit(0);
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)
 	{
