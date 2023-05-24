@@ -1,10 +1,10 @@
-#include "shell.h"
+#include "main.h"
 
 /**
- * make_path - makes a path
- * @path: path to make
- * @cmd: command to add to path
- * Return: path
+ * make_path - creates a path to a command
+ * @path: path to the command
+ * @cmd: command to create the path to
+ * Return: pointer to the path
  */
 
 char *make_path(char *path, char *cmd)

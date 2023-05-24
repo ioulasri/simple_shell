@@ -5,11 +5,13 @@
       "includePath": [
         "${workspaceFolder}/**"
       ],
-      "defines": [],
       "compilerPath": "/usr/bin/gcc",
       "cStandard": "c17",
       "cppStandard": "c++98",
-      "intelliSenseMode": "macos-gcc-arm64"
+      "intelliSenseMode": "macos-gcc-arm64",
+      "compilerArgs": [
+        ""
+      ]
     }
   ],
   "version": 4

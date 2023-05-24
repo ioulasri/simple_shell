@@ -1,4 +1,4 @@
-#include "shell.h"
+#include "main.h"
 
 /**
  * _strlen - returns the length of a string
@@ -13,26 +13,6 @@ int _strlen(char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
-}
-
-/**
- * _strcmp - compares two strings
- * @str1: first string
- * @str2: second string
- * Return: 0 if strings are equal, -1 if not
- */
-
-int _strcmp(char *str1, char *str2)
-{
-	int i = 0;
-
-	while (str1[i] != '\0' && str2[i] != '\0')
-	{
-		if (str1[i] != str2[i])
-			return (-1);
-		i++;
-	}
-	return (0);
 }
 
 /**
@@ -84,31 +64,15 @@ char *_strdup(char *str)
 }
 
 /**
- * _strcatpath - concatenates two strings
- * @dest: destination string
- * @src: source string
- * Return: pointer to the concatenated string
+ * sigintHandler - handles the SIGINT signal
+ * @sig_num: signal number
+ * Return: void
  */
 
-char *_strcatpath(char *dest, char *src)
+void sigintHandler(int sig_num)
 {
-	int i = 0, j = 0;
-	char *concat = NULL;
-
-	concat = malloc(sizeof(char) * (_strlen(dest) + _strlen(src) + 1));
-	if (concat == NULL)
-		return (NULL);
-	while (dest[i] != '\0')
-	{
-		concat[i] = dest[i];
-		i++;
-	}
-	while (src[j] != '\0')
-	{
-		concat[i] = src[j];
-		i++;
-		j++;
-	}
-	concat[i] = '\0';
-	return (concat);
+	(void)sig_num;
+	signal(SIGINT, sigintHandler);
+	fflush(stdout);
 }
+
