@@ -18,10 +18,7 @@ int execute(char **tokens, char **argv, char **env)
 		return (0);
 	command = get_path(tokens[0]);
 	if (command == NULL)
-	{
-		perror(argv[0]);
 		return (1);
-	}
 	if (!access(command, X_OK))
 	{
 		child_pid = fork();
@@ -41,7 +38,6 @@ int execute(char **tokens, char **argv, char **env)
 		}
 		else
 			wait(&status);
-		free(command);
 	}
 	return (status);
 }
