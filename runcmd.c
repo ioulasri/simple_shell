@@ -32,6 +32,7 @@ int execute(char **tokens, char **argv, char **env)
 		if (child_pid == -1)
 		{
 			perror(argv[0]);
+			free(command);
 			return (1);
 		}
 		if (child_pid == 0)
@@ -46,6 +47,11 @@ int execute(char **tokens, char **argv, char **env)
 		else
 			wait(&status);
 		get_last_exit(1, 0);
+	}
+	else
+	{
+		perror(argv[0]);
+		get_last_exit(1, 126);
 	}
 	return (status);
 }
