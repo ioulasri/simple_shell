@@ -15,10 +15,16 @@ int execute(char **tokens, char **argv, char **env)
 	int status = 0;
 
 	if (builtins(tokens, argv, env) == 0)
+	{
+		ex_status(0);
 		return (0);
+	}
 	command = get_path(tokens[0]);
 	if (command == NULL)
+	{
+		ex_status(127);
 		return (1);
+	}
 	if (!access(command, X_OK))
 	{
 		child_pid = fork();
@@ -38,6 +44,23 @@ int execute(char **tokens, char **argv, char **env)
 		}
 		else
 			wait(&status);
+		ex_status(status);
 	}
 	return (status);
+}
+
+/**
+ * ex_status - gets the exit status of the last command
+ * @status: exit status
+ * Return: exit status
+ */
+
+int ex_status(int status)
+{
+	static int ex = 0;
+	int prev = 0;
+
+	prev = ex;
+	ex = status;
+	return (prev);
 }
