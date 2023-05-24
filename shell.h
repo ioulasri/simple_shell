@@ -4,11 +4,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <stddef.h>
 #include <string.h>
 #include <errno.h>
 #include <sys/wait.h>
 #include <sys/stat.h>
 #include <signal.h>
+#include <fcntl.h>
 
 #define READ_SIZE 1024
 #define BUFSIZE 1024

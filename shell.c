@@ -20,8 +20,11 @@ int main(int ac, char **av, char **env)
 	while (shell)
 	{
 		if (isatty(STDIN_FILENO))
+		{
+			fflush(stdin);
 			write(STDOUT_FILENO, "$ ", 2);
-		n_characters = getline(&buf, &buf_size, stdin);
+		}
+		n_characters = _getline(&buf, &buf_size, STDIN_FILENO);
 		cut_string(buf);
 		if (n_characters == EOF)
 		{
