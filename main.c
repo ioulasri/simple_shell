@@ -34,7 +34,6 @@ int main(int argc, char **argv, char **env)
 			continue;
 		status = execute(tokens, argv, env);
 		free(tokens);
-		fflush(stdin);
 	}
 	free(line);
 	return (status);
