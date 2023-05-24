@@ -76,3 +76,25 @@ void sigintHandler(int sig_num)
 	fflush(stdout);
 }
 
+/**
+ * _atoi - converts a string to an integer
+ * @str: string to be converted
+ * Return: integer value of the string
+ */
+
+int _atoi(char *str)
+{
+	int i = 0, sign = 1, num = 0;
+
+	while (str[i] != '\0')
+	{
+		if (str[i] == '-')
+			sign *= -1;
+		if (str[i] >= '0' && str[i] <= '9')
+			num = num * 10 + sign * (str[i] - '0');
+		if (num != 0 && !(str[i] >= '0' && str[i] <= '9'))
+			break;
+		i++;
+	}
+	return (num);
+}

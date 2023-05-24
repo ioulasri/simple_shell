@@ -28,5 +28,6 @@ int execute(char **tokens, char **argv, char **env);
 void ffree(char **ptr);
 void p_free(char *ptr);
 int builtins(char **tokens, char **argv, char **env);
+int _atoi(char *str);
 
 #endif /* _MAIN_H_ */
