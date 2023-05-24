@@ -15,11 +15,15 @@ int execute(char **tokens, char **argv, char **env)
 	int status = 0;
 
 	if (builtins(tokens, argv, env) == 0)
+	{
+		last_exit(0);
 		return (0);
+	}
 	command = get_path(tokens[0]);
 	if (command == NULL)
 	{
 		perror(argv[0]);
+		last_exit(127);
 		return (1);
 	}
 	if (!access(command, X_OK))
@@ -42,6 +46,23 @@ int execute(char **tokens, char **argv, char **env)
 		else
 			wait(&status);
 		free(command);
+		last_exit(0);
 	}
 	return (status);
+}
+
+/**
+ * last_exit - returns the last exit status
+ * @status: exit status
+ * Return: last exit status
+ */
+
+int last_exit(int status)
+{
+	static int last = 0;
+	int previous = 0;
+
+	previous = last;
+	last = status;
+	return (previous);
 }
