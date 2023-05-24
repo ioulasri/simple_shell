@@ -50,7 +50,7 @@ char *_itoa(int num);
 int _constcharlen(const char *str);
 void print_error(char *av, int count, char *cmd, char *msg);
 
-/* function3.c */
+/* functions3.c */
 char *_strchr(char *s, char c);
 char *_strtok(char *str, char *delim);
 char *_strcat(char *dest, char *src);
