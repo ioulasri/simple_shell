@@ -14,6 +14,7 @@
 extern char **environ;
 
 char **tokenize(char *line);
+int get_last_exit(int action, int status);
 int _strlen(char *str);
 int _strncmp(char *str1, char *str2, int n);
 char *_strdup(char *str);
