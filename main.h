@@ -31,7 +31,5 @@ int builtins(char **tokens, char **argv, char **env);
 int _atoi(char *str);
 void cut_string(char *str);
 char *_itoa(int num);
-int _setenv(char *key, char *value, int overwrite);
-int _unsetenv(char *key);
 
 #endif /* _MAIN_H_ */
