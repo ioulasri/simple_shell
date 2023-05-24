@@ -47,11 +47,7 @@ int handle_builtins1(char **tokens, char **env)
 	int i = 0;
 
 	if (_strncmp(tokens[0], "exit", 4) == 0)
-	{
-		if (tokens[1] != NULL)
-			i = _atoi(tokens[1]);
-		exit(i);
-	}
+		exit(EXIT_SUCCESS);
 	if (_strncmp(tokens[0], "env", 3) == 0)
 	{
 		while (env[i] != NULL)
