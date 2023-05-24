@@ -27,6 +27,15 @@ int handle_echo(char **tokens, char **argv)
 		flag = 1;
 		i++;
 	}
+	if (_strncmp(tokens[1], "$?", 2) == 0)
+	{
+		value = _itoa(get_last_exit(0, 0));
+		write(STDOUT_FILENO, value, _strlen(value));
+		write(STDOUT_FILENO, "\n", 1);
+		free(value);
+		flag = 1;
+		i++;
+	}
 	while (tokens[i] != NULL)
 	{
 		j = 0;
