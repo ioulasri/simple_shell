@@ -10,17 +10,15 @@
 
 int main(int argc, char **argv, char **env)
 {
-	char *line, **tokens = NULL;
+	char *line = NULL, **tokens = NULL;
 	size_t len = 0;
 	ssize_t read = 0;
 	int status = 0;
 
 	(void)argc;
-
-	signal(SIGINT, sigintHandler);
+	sigintHandler(0);
 	while (1)
 	{
-		line = NULL;
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
 		read = getline(&line, &len, stdin);
@@ -30,16 +28,13 @@ int main(int argc, char **argv, char **env)
 				write(STDOUT_FILENO, "\n", 1);
 			break;
 		}
+		if (line[0] == '\n')
+			continue;
 		tokens = tokenize(line);
 		if (tokens == NULL)
 			continue;
-		if (line[0] == '\n')
-		{
-			ffree(tokens);
-			continue;
-		}
 		status = execute(tokens, argv, env);
-		ffree(tokens);
+		free(tokens);
 	}
 	free(line);
 	return (status);

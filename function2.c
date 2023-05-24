@@ -57,16 +57,18 @@ char *_strcat(char *dest, char *src)
 
 void ffree(char **ptr)
 {
-	char **temp = ptr;
+	int i = 0;
 
-	while (*ptr != NULL)
+	if (ptr == NULL)
+		return;
+
+	while (ptr[i] != NULL)
 	{
-		free(*ptr);
-		ptr++;
+		free(ptr[i]);
+		i++;
 	}
-	if (temp != NULL)
-		free(temp);
-	ptr = NULL;
+
+	free(ptr);
 }
 
 /**

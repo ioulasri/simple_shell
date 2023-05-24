@@ -37,7 +37,7 @@ int builtins(char **tokens, char **argv, char **env)
 	if (_strncmp(tokens[0], "exit", 4) == 0)
 	{
 		ffree(tokens);
-		exit(ex_status(0));
+		exit(EXIT_SUCCESS);
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)
 	{

@@ -27,6 +27,5 @@ int execute(char **tokens, char **argv, char **env);
 void ffree(char **ptr);
 void p_free(char *ptr);
 int builtins(char **tokens, char **argv, char **env);
-int ex_status(int status);
 
 #endif /* _MAIN_H_ */
