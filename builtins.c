@@ -1,6 +1,50 @@
 #include "main.h"
 
 /**
+ * handle_echo - handles the echo builtin
+ * @tokens: array of tokens
+ * @argv: array of arguments
+ * Return: 0 on success, 1 on failure
+ */
+
+int handle_echo(char **tokens, char **argv)
+{
+	int i = 1, j = 0, flag = 0;
+	char *value;
+
+	(void)argv;
+	if (tokens[1] == NULL)
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		return (0);
+	}
+	if (_strncmp(tokens[1], "$$", 2) == 0)
+	{
+		value = _itoa(getpid());
+		write(STDOUT_FILENO, value, _strlen(value));
+		write(STDOUT_FILENO, "\n", 1);
+		free(value);
+		flag = 1;
+		i++;
+	}
+	while (tokens[i] != NULL)
+	{
+		j = 0;
+		while (tokens[i][j] != '\0')
+		{
+			write(STDOUT_FILENO, &tokens[i][j], 1);
+			j++;
+		}
+		if (tokens[i + 1] != NULL)
+			write(STDOUT_FILENO, " ", 1);
+		i++;
+	}
+	if (flag == 0)
+		write(STDOUT_FILENO, "\n", 1);
+	return (0);
+}
+
+/**
  * print_env - prints the environment variables
  * @env: array of environment variables
  */
@@ -44,6 +88,11 @@ int builtins(char **tokens, char **argv, char **env)
 	if (_strncmp(tokens[0], "env", 3) == 0)
 	{
 		print_env(env);
+		return (0);
+	}
+	if (_strncmp(tokens[0], "echo", 4) == 0)
+	{
+		handle_echo(tokens, argv);
 		return (0);
 	}
 	return (1);
