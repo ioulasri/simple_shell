@@ -48,11 +48,6 @@ int execute(char **tokens, char **argv, char **env)
 			wait(&status);
 		get_last_exit(1, 0);
 	}
-	else
-	{
-		perror(argv[0]);
-		get_last_exit(1, 126);
-	}
 	return (status);
 }
 
@@ -65,7 +60,7 @@ int execute(char **tokens, char **argv, char **env)
 
 int get_last_exit(int action, int status)
 {
-	static int last_exit = 0;
+	static int last_exit;
 
 	if (action == 1)
 		last_exit = status;

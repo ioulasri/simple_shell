@@ -1,18 +1,57 @@
 #include "main.h"
 
 /**
+ * print_val - prints a value
+ * @val: value to be printed
+ * Return: void
+ */
+
+void print_val(int val)
+{
+	char *str = NULL;
+
+	str = _itoa(val);
+	write(STDOUT_FILENO, str, _strlen(str));
+	write(STDOUT_FILENO, "\n", 1);
+	free(str);
+}
+
+/**
+ * print_tokens - print tokens
+ * @tokens: array of tokens
+ * @i: index of the token to start printing from
+ * Return: void
+ */
+
+void print_tokens(char **tokens, int i)
+{
+	int j = 0;
+
+	while (tokens[i] != NULL)
+	{
+		j = 0;
+		while (tokens[i][j] != '\0')
+		{
+			write(STDOUT_FILENO, &tokens[i][j], 1);
+			j++;
+		}
+		if (tokens[i + 1] != NULL)
+			write(STDOUT_FILENO, " ", 1);
+		i++;
+	}
+}
+
+/**
  * handle_echo - handles the echo builtin
  * @tokens: array of tokens
- * @argv: array of arguments
  * Return: 0 on success, 1 on failure
  */
 
-int handle_echo(char **tokens, char **argv)
+int handle_echo(char **tokens)
 {
-	int i = 1, j = 0, flag = 0;
-	char *value;
+	char *value = NULL;
+	int i = 1, flag = 0;
 
-	(void)argv;
 	if (tokens[1] == NULL)
 	{
 		write(STDOUT_FILENO, "\n", 1);
@@ -20,19 +59,13 @@ int handle_echo(char **tokens, char **argv)
 	}
 	if (_strncmp(tokens[1], "$$", 2) == 0)
 	{
-		value = _itoa(getpid());
-		write(STDOUT_FILENO, value, _strlen(value));
-		write(STDOUT_FILENO, "\n", 1);
-		free(value);
+		print_val(getpid());
 		flag = 1;
 		i++;
 	}
 	if (_strncmp(tokens[1], "$?", 2) == 0)
 	{
-		value = _itoa(get_last_exit(0, 0));
-		write(STDOUT_FILENO, value, _strlen(value));
-		write(STDOUT_FILENO, "\n", 1);
-		free(value);
+		print_val(get_last_exit(0, 0));
 		flag = 1;
 		i++;
 	}
@@ -47,18 +80,7 @@ int handle_echo(char **tokens, char **argv)
 		flag = 1;
 		i++;
 	}
-	while (tokens[i] != NULL)
-	{
-		j = 0;
-		while (tokens[i][j] != '\0')
-		{
-			write(STDOUT_FILENO, &tokens[i][j], 1);
-			j++;
-		}
-		if (tokens[i + 1] != NULL)
-			write(STDOUT_FILENO, " ", 1);
-		i++;
-	}
+	print_tokens(tokens, i);
 	if (flag == 0)
 		write(STDOUT_FILENO, "\n", 1);
 	return (0);
@@ -112,7 +134,7 @@ int builtins(char **tokens, char **argv, char **env)
 	}
 	if (_strncmp(tokens[0], "echo", 4) == 0)
 	{
-		handle_echo(tokens, argv);
+		handle_echo(tokens);
 		return (0);
 	}
 	return (1);
