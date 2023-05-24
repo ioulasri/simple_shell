@@ -47,6 +47,7 @@ int execute(char **tokens, char **argv, char **env)
 		else
 			wait(&status);
 		get_last_exit(1, 0);
+		free(command);
 	}
 	else
 	{
