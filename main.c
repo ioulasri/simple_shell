@@ -10,7 +10,7 @@
 
 int main(int argc, char **argv, char **env)
 {
-	char *line = NULL, **tokens = NULL;
+	char *line, **tokens = NULL;
 	size_t len = 0;
 	ssize_t read = 0;
 	int status = 0;
@@ -20,6 +20,7 @@ int main(int argc, char **argv, char **env)
 	signal(SIGINT, sigintHandler);
 	while (1)
 	{
+		line = NULL;
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, "$ ", 2);
 		read = getline(&line, &len, stdin);
@@ -32,8 +33,13 @@ int main(int argc, char **argv, char **env)
 		tokens = tokenize(line);
 		if (tokens == NULL)
 			continue;
+		if (line[0] == '\n')
+		{
+			ffree(tokens);
+			continue;
+		}
 		status = execute(tokens, argv, env);
-		free(tokens);
+		ffree(tokens);
 	}
 	free(line);
 	return (status);

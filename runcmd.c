@@ -22,6 +22,7 @@ int execute(char **tokens, char **argv, char **env)
 	command = get_path(tokens[0]);
 	if (command == NULL)
 	{
+		perror(argv[0]);
 		ex_status(127);
 		return (1);
 	}
@@ -31,6 +32,7 @@ int execute(char **tokens, char **argv, char **env)
 		if (child_pid == -1)
 		{
 			perror(argv[0]);
+			free(command);
 			return (1);
 		}
 		if (child_pid == 0)
@@ -45,6 +47,14 @@ int execute(char **tokens, char **argv, char **env)
 		else
 			wait(&status);
 		ex_status(status);
+		free(command);
+	}
+	else
+	{
+		perror(argv[0]);
+		free(command);
+		ex_status(126);
+		return (1);
 	}
 	return (status);
 }
