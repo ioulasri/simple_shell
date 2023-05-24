@@ -25,7 +25,6 @@ char *make_path(char *path, char *cmd);
 char *get_path(char *cmd);
 int execute(char **tokens, char **argv, char **env);
 void ffree(char **ptr);
-int last_exit(int status);
 void p_free(char *ptr);
 int builtins(char **tokens, char **argv, char **env);
 
