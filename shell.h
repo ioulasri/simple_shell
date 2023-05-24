@@ -72,8 +72,6 @@ void pr_error(char **tokens, char **av);
 int fork_run(char **tokens, char **env);
 
 /* edit_env.c */
-int _setenv(char *name, char *value, int overwrite);
-int _unsetenv(char *key);
 int len_env(char **env);
 char *_getenv(char *key);
 

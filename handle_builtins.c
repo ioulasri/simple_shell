@@ -78,10 +78,8 @@ int handle_builtins2(char **tokens)
 		}
 		if (tokens[2] == NULL)
 		{
-			_setenv(tokens[1], "", 1);
 			return (1);
 		}
-		_setenv(tokens[1], tokens[2], 1);
 		return (1);
 	}
 	if (_strncmp(tokens[0], "unsetenv", 8) == 0)
@@ -91,7 +89,6 @@ int handle_builtins2(char **tokens)
 			write(STDERR_FILENO, "Usage: unsetenv [VARIABLE]\n", 27);
 			return (1);
 		}
-		_unsetenv(tokens[1]);
 		return (1);
 	}
 	return (0);

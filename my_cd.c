@@ -57,7 +57,6 @@ void my_cd(char **args)
 
 void change_directory(char **directories, char *command_name)
 {
-	char *oldpwd = _getenv("PWD");
 	char *pwd = getcwd(NULL, 0);
 
 	if (chdir(directories[0]) == -1)
@@ -67,8 +66,6 @@ void change_directory(char **directories, char *command_name)
 	}
 	else
 	{
-		_setenv("OLDPWD", oldpwd, 1);
-		_setenv("PWD", pwd, 1);
 		free(pwd);
 	}
 }

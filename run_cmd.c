@@ -9,14 +9,10 @@
 
 void pr_error(char **tokens, char **av)
 {
-	int ex_status;
-
 	write(STDERR_FILENO, av[0], _strlen(av[0]));
 	write(STDERR_FILENO, ": line 1: ", 10);
 	write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
 	write(STDERR_FILENO, ": command not found\n", 20);
-	ex_status = 127;
-	_setenv("?", _itoa(ex_status), 1);
 }
 
 /**
@@ -41,7 +37,6 @@ int fork_run(char **tokens, char **env)
 	if (pid == -1)
 	{
 		perror("Error");
-		_setenv("?", "127", 1);
 		free(path);
 		return (-1);
 	}
@@ -50,7 +45,6 @@ int fork_run(char **tokens, char **env)
 		if (execve(path, tokens, env) == -1)
 		{
 			perror("Error");
-			_setenv("?", "127", 1);
 			free(path);
 			exit(1);
 		}
@@ -58,7 +52,6 @@ int fork_run(char **tokens, char **env)
 	else
 	{
 		wait(&status);
-		_setenv("?", _itoa(status), 1);
 	}
 	free(path);
 	return (0);
