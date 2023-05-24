@@ -36,6 +36,17 @@ int handle_echo(char **tokens, char **argv)
 		flag = 1;
 		i++;
 	}
+	if (_strncmp(tokens[1], "$", 1) == 0)
+	{
+		value = _getenv(tokens[1] + 1);
+		if (value != NULL)
+		{
+			write(STDOUT_FILENO, value, _strlen(value));
+			write(STDOUT_FILENO, "\n", 1);
+		}
+		flag = 1;
+		i++;
+	}
 	while (tokens[i] != NULL)
 	{
 		j = 0;
