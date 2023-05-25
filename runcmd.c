@@ -20,6 +20,7 @@ void writerr(char **tokens, char **argv)
  * @tokens: array of tokens
  * @argv: array of arguments
  * @env: array of environment variables
+ * @line: line from getline
  * Return: 0 on success, 1 on failure
  */
 

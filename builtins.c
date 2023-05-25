@@ -112,6 +112,12 @@ int handle_exit(char **tokens, char *line)
 	if (_isnumber(tokens[1]) == 0)
 	{
 		status = _atoi(tokens[1]);
+		if (status < 0)
+		{
+			free(tokens);
+			free(line);
+			exit(256 + status);
+		}
 		free(tokens);
 		free(line);
 		exit(get_last_exit(1, status));
@@ -132,6 +138,7 @@ int handle_exit(char **tokens, char *line)
  * @tokens: array of tokens
  * @argv: array of arguments
  * @env: array of environment variables
+ * @line: pointer to the line buffer
  * Return: 0 if builtin, 1 if not
  */
 
