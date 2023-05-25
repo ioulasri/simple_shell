@@ -32,6 +32,6 @@ int _atoi(char *str);
 void cut_string(char *str);
 char *_itoa(int num);
 void print_val(int val);
-int handle_cd(char **tokens);
+int _isnumber(char *str);
 
 #endif /* _MAIN_H_ */
