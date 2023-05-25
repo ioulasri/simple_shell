@@ -31,5 +31,7 @@ int builtins(char **tokens, char **argv, char **env);
 int _atoi(char *str);
 void cut_string(char *str);
 char *_itoa(int num);
+void print_val(int val);
+int handle_cd(char **tokens);
 
 #endif /* _MAIN_H_ */
