@@ -27,7 +27,7 @@ char *get_path(char *cmd);
 int execute(char **tokens, char **argv, char **env, char *line);
 void ffree(char **ptr);
 void p_free(char *ptr);
-int builtins(char **tokens, char **argv, char **env);
+int builtins(char **tokens, char **argv, char **env, char *line);
 int _atoi(char *str);
 void cut_string(char *str);
 char *_itoa(int num);
