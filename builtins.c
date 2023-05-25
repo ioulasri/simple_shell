@@ -115,10 +115,10 @@ int builtins(char **tokens, char **argv, char **env)
 				write(STDERR_FILENO, "Illegal number: ", 16);
 				write(STDERR_FILENO, tokens[1], _strlen(tokens[1]));
 				write(STDERR_FILENO, "\n", 1);
-				exit(255);
+				_exit(255);
 				return (0);
 			}
-			get_last_exit(1, _atoi(tokens[1]));
+			_exit(_atoi(tokens[1]));
 		}
 		free(tokens);
 		_exit(get_last_exit(0, 0));
