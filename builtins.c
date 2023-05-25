@@ -123,7 +123,7 @@ int builtins(char **tokens, char **argv, char **env)
 	if (_strncmp(tokens[0], "exit", 4) == 0)
 	{
 		if (tokens[1] != NULL)
-			exit(_atoi(tokens[1]));
+			_exit(_atoi(tokens[1]));
 		ffree(tokens);
 		exit(get_last_exit(0, 0));
 	}
