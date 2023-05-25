@@ -125,7 +125,7 @@ int builtins(char **tokens, char **argv, char **env)
 		if (tokens[1] != NULL)
 			_exit(_atoi(tokens[1]));
 		ffree(tokens);
-		exit(get_last_exit(0, 0));
+		_exit(get_last_exit(0, 0));
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)
 	{
