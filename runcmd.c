@@ -63,6 +63,7 @@ int execute(char **tokens, char **argv, char **env, char *line)
 		else
 			wait(&status);
 		get_last_exit(1, 0);
+		free(command);
 	}
 	return (status);
 }
