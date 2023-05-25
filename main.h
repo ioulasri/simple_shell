@@ -33,5 +33,6 @@ void cut_string(char *str);
 char *_itoa(int num);
 void print_val(int val);
 int _isnumber(char *str);
+char *my_strtok(char *str, const char *delim);
 
 #endif /* _MAIN_H_ */
