@@ -11,6 +11,8 @@ void writerr(char **tokens, char **argv)
 {
 	write(STDERR_FILENO, argv[0], _strlen(argv[0]));
 	write(STDERR_FILENO, ": ", 2);
+	write(STDERR_FILENO, "1", 1);
+	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, tokens[0], _strlen(tokens[0]));
 	write(STDERR_FILENO, ": not found\n", 12);
 }
