@@ -24,13 +24,13 @@ void print_val(int val)
 
 int _isnumber(char *str)
 {
-    int i = 0;
+	int i = 0;
 
-    while (str[i] != '\0')
-    {
-        if (str[i] < '0' || str[i] > '9')
-            return (1);
-        i++;
-    }
-    return (0);
+	while (str[i] != '\0')
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
 }

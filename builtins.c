@@ -93,6 +93,38 @@ void print_env(char **env)
 }
 
 /**
+ * handle_exit - handles the exit builtin
+ * @tokens: array of tokens
+ * Return: 0 on success, 1 on failure
+ */
+
+int handle_exit(char **tokens)
+{
+	int status = 0;
+
+	if (tokens[1] == NULL)
+	{
+		free(tokens);
+		exit(get_last_exit(1, status));
+	}
+	if (_isnumber(tokens[1]) == 0)
+	{
+		status = _atoi(tokens[1]);
+		free(tokens);
+		exit(get_last_exit(1, status));
+	}
+	else
+	{
+		write(STDERR_FILENO, "Illegal number: ", 16);
+		write(STDERR_FILENO, tokens[1], _strlen(tokens[1]));
+		write(STDERR_FILENO, "\n", 1);
+		get_last_exit(1, 2);
+		return (1);
+	}
+	return (0);
+}
+
+/**
  * builtins - checks if a command is a builtin
  * @tokens: array of tokens
  * @argv: array of arguments
@@ -106,17 +138,8 @@ int builtins(char **tokens, char **argv, char **env)
 
 	if (_strncmp(tokens[0], "exit", 4) == 0)
 	{
-		if (tokens[1] != NULL)
-		{
-			if (_isnumber(tokens[1]) == 0)
-			{
-				if (_atoi(tokens[1]) < 0)
-					_exit(2);
-				_exit(_atoi(tokens[1]));
-			}
-		}
-		ffree(tokens);
-		_exit(get_last_exit(0, 0));
+		handle_exit(tokens);
+		return (0);
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)
 	{
