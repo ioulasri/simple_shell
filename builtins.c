@@ -107,7 +107,14 @@ int builtins(char **tokens, char **argv, char **env)
 	if (_strncmp(tokens[0], "exit", 4) == 0)
 	{
 		if (tokens[1] != NULL)
-			_exit(_atoi(tokens[1]));
+		{
+			if (_isnumber(tokens[1]) == 0)
+			{
+				if (_atoi(tokens[1]) < 0)
+					_exit(2);
+				_exit(_atoi(tokens[1]));
+			}
+		}
 		ffree(tokens);
 		_exit(get_last_exit(0, 0));
 	}
