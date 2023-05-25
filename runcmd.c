@@ -23,13 +23,13 @@ void writerr(char **tokens, char **argv)
  * Return: 0 on success, 1 on failure
  */
 
-int execute(char **tokens, char **argv, char **env)
+int execute(char **tokens, char **argv, char **env, char *line)
 {
 	char *command = NULL;
 	pid_t child_pid = 0;
 	int status = 0;
 
-	if (builtins(tokens, argv, env) == 0)
+	if (builtins(tokens, argv, env, line) == 0)
 	{
 		get_last_exit(1, 0);
 		return (0);
