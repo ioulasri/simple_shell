@@ -106,21 +106,11 @@ int builtins(char **tokens, char **argv, char **env)
 
 	if (_strncmp(tokens[0], "exit", 4) == 0)
 	{
+		if (_isnumber(tokens[1]) != 0)
+			_exit(255);
 		if (tokens[1] != NULL)
-		{
-			if (_isnumber(tokens[1]) != 0)
-			{
-				write(STDERR_FILENO, argv[0], _strlen(argv[0]));
-				write(STDERR_FILENO, ": ", 2);
-				write(STDERR_FILENO, "Illegal number: ", 16);
-				write(STDERR_FILENO, tokens[1], _strlen(tokens[1]));
-				write(STDERR_FILENO, "\n", 1);
-				_exit(255);
-				return (0);
-			}
 			_exit(_atoi(tokens[1]));
-		}
-		free(tokens);
+		ffree(tokens);
 		_exit(get_last_exit(0, 0));
 	}
 	if (_strncmp(tokens[0], "env", 3) == 0)
