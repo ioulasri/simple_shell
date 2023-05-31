@@ -1,10 +1,10 @@
-#include "main.h"
+#include "shell.h"
 
 /**
- * make_path - creates a path to a command
- * @path: path to the command
- * @cmd: command to create the path to
- * Return: pointer to the path
+ * make_path - makes a path
+ * @path: path to make
+ * @cmd: command to add to path
+ * Return: path
  */
 
 char *make_path(char *path, char *cmd)
@@ -43,7 +43,7 @@ char *get_path(char *cmd)
 	}
 	path = _getenv("PATH");
 	path_copy = _strdup(path);
-	token = my_strtok(path_copy, ":");
+	token = strtok(path_copy, ":");
 	while (token != NULL)
 	{
 		cmd_path = make_path(token, cmd);
@@ -53,7 +53,7 @@ char *get_path(char *cmd)
 			return (cmd_path);
 		}
 		free(cmd_path);
-		token = my_strtok(NULL, ":");
+		token = strtok(NULL, ":");
 	}
 	free(path_copy);
 	return (NULL);

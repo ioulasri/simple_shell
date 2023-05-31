@@ -1,4 +1,4 @@
-#include "main.h"
+#include "shell.h"
 
 /**
  * _strlen - returns the length of a string
@@ -13,6 +13,26 @@ int _strlen(char *str)
 	while (str[i] != '\0')
 		i++;
 	return (i);
+}
+
+/**
+ * _strcmp - compares two strings
+ * @str1: first string
+ * @str2: second string
+ * Return: 0 if strings are equal, -1 if not
+ */
+
+int _strcmp(char *str1, char *str2)
+{
+	int i = 0;
+
+	while (str1[i] != '\0' && str2[i] != '\0')
+	{
+		if (str1[i] != str2[i])
+			return (-1);
+		i++;
+	}
+	return (0);
 }
 
 /**
@@ -64,37 +84,31 @@ char *_strdup(char *str)
 }
 
 /**
- * sigintHandler - handles the SIGINT signal
- * @sig_num: signal number
- * Return: void
+ * _strcatpath - concatenates two strings
+ * @dest: destination string
+ * @src: source string
+ * Return: pointer to the concatenated string
  */
 
-void sigintHandler(int sig_num)
+char *_strcatpath(char *dest, char *src)
 {
-	(void)sig_num;
-	signal(SIGINT, sigintHandler);
-	fflush(stdout);
-}
+	int i = 0, j = 0;
+	char *concat = NULL;
 
-/**
- * _atoi - converts a string to an integer
- * @str: string to be converted
- * Return: integer value of the string
- */
-
-int _atoi(char *str)
-{
-	int i = 0, sign = 1, num = 0;
-
-	while (str[i] != '\0')
+	concat = malloc(sizeof(char) * (_strlen(dest) + _strlen(src) + 1));
+	if (concat == NULL)
+		return (NULL);
+	while (dest[i] != '\0')
 	{
-		if (str[i] == '-')
-			sign *= -1;
-		if (str[i] >= '0' && str[i] <= '9')
-			num = num * 10 + sign * (str[i] - '0');
-		if (num != 0 && !(str[i] >= '0' && str[i] <= '9'))
-			break;
+		concat[i] = dest[i];
 		i++;
 	}
-	return (num);
+	while (src[j] != '\0')
+	{
+		concat[i] = src[j];
+		i++;
+		j++;
+	}
+	concat[i] = '\0';
+	return (concat);
 }
